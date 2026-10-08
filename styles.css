@@ -1,0 +1,1212 @@
+/* ==========================================================================
+   Muscat AI Markets — theme
+   Palette and typography follow the Macro Digital company profile deck:
+   deep indigo/violet field, magenta mid-tones, orange as the primary accent.
+   ========================================================================== */
+
+:root {
+  --bg:          #060518;
+  --bg-2:        #0c0a26;
+  --surface:     #121030;
+  --surface-2:   #191540;
+  --orange:      #f4661f;
+  --orange-soft: #ff8a3d;
+  --magenta:     #e5399a;
+  --violet:      #7c4dff;
+  --violet-soft: #a78bfa;
+  --blue:        #3b6fff;
+  --border:      rgba(255, 255, 255, 0.09);
+  --border-lit:  rgba(244, 102, 31, 0.45);
+  --grad:        linear-gradient(120deg, var(--violet), var(--magenta) 55%, var(--orange));
+}
+
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  overflow-x: hidden;
+}
+
+/* Fixed page-wide animated background. Sits behind everything and does not
+   scroll, so the whole page shares one continuous field. */
+#site-topology {
+  position: fixed;
+  inset: 0;
+  z-index: -3;
+  pointer-events: none;
+  background: var(--bg);
+}
+
+#site-topology canvas { position: absolute !important; inset: 0; }
+
+/* Deep vertical wash so the page reads indigo rather than flat black. Opaque
+   on its own; once TOPOLOGY is live it drops to a translucent variant so the
+   animation shows through — see .topology-on below. */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -2;
+  background:
+    radial-gradient(ellipse 90% 55% at 12% 0%, rgba(124, 77, 255, 0.20), transparent 60%),
+    radial-gradient(ellipse 70% 50% at 88% 12%, rgba(229, 57, 154, 0.14), transparent 60%),
+    linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 45%);
+}
+
+/* Translucent so the topology reads through, but dark enough to keep body
+   copy legible over it. Measured, not guessed — see AGENTS.md. */
+body.topology-on::before {
+  background:
+    radial-gradient(ellipse 90% 55% at 12% 0%, rgba(124, 77, 255, 0.22), transparent 60%),
+    radial-gradient(ellipse 70% 50% at 88% 12%, rgba(229, 57, 154, 0.16), transparent 60%),
+    linear-gradient(180deg, rgba(12, 10, 38, 0.66) 0%, rgba(6, 5, 24, 0.76) 45%);
+}
+
+::selection { background: var(--orange); color: #fff; }
+
+/* Mobile nav */
+header nav.mobile-open {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  gap: 1.25rem;
+  background: rgba(6, 5, 24, 0.97);
+  backdrop-filter: blur(20px);
+  border-top: 1px solid var(--border);
+  padding: 1.5rem;
+}
+
+/* --------------------------------------------------------------- typography */
+
+h1, h2, h3, h4, .display, .display-sm {
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  letter-spacing: -0.02em;
+}
+
+.display {
+  font-size: clamp(2.5rem, 6vw, 4.75rem);
+  font-weight: 800;
+  line-height: 1.03;
+}
+
+.display-sm {
+  font-size: clamp(1.9rem, 3.8vw, 3rem);
+  font-weight: 800;
+  line-height: 1.1;
+}
+
+/* The deck pairs a light word with a bold word — mirror that here. */
+.thin { font-weight: 300; color: rgba(255, 255, 255, 0.82); }
+
+.eyebrow {
+  display: inline-block;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--orange-soft);
+}
+
+.accent { color: var(--orange-soft); font-style: normal; }
+
+.grad-text {
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+/* A left rule in the deck's orange precedes most body copy. */
+.rule-left {
+  border-left: 2px solid var(--orange);
+  padding-left: 1.15rem;
+}
+
+/* ------------------------------------------------------------------- atoms */
+
+.badge {
+  display: inline-block;
+  padding: 0.45rem 1.05rem;
+  font-size: 0.8rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-lit);
+  background: rgba(244, 102, 31, 0.10);
+  color: var(--orange-soft);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9rem 1.7rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  transition: transform 0.2s, box-shadow 0.2s, background 0.2s, border-color 0.2s;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--grad);
+  color: #fff;
+  box-shadow: 0 10px 30px -12px rgba(244, 102, 31, 0.7);
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 16px 38px -12px rgba(244, 102, 31, 0.85);
+}
+
+.btn-ghost {
+  border: 1px solid var(--border);
+  color: #fff;
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.btn-ghost:hover {
+  border-color: var(--border-lit);
+  background: rgba(244, 102, 31, 0.08);
+  transform: translateY(-2px);
+}
+
+/* Vanta mounts its WebGL canvas in here. WAVES only takes one base colour, so
+   .aurora sits on top to carry the magenta/orange end of the brand gradient —
+   and is what you see if the CDN or WebGL is unavailable. */
+/* Opaque base: the hero must fully occlude the fixed page topology behind it,
+   including when WebGL/the CDN is unavailable and no canvas is drawn here. */
+.hero-waves {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background: linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 100%);
+}
+
+.hero-waves canvas {
+  position: absolute !important;
+  inset: 0;
+  z-index: 0 !important;
+}
+
+/* Scrim over the canvas. Wave crests catch enough light to fight the orange
+   badge and the body copy, so this is heavy directly behind the text column
+   and falls away fast towards the edges, where the animation stays visible.
+   Measured target: background luminance <= 0.11 behind the badge, which keeps
+   #ff8a3d on it above the 7:1 WCAG AAA threshold. */
+.hero-waves.is-on::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  background:
+    radial-gradient(ellipse 64% 58% at 50% 46%, rgba(6, 5, 24, 0.91), rgba(6, 5, 24, 0.44) 68%, rgba(6, 5, 24, 0.10)),
+    linear-gradient(180deg, rgba(6, 5, 24, 0.55), rgba(6, 5, 24, 0.22) 45%, rgba(6, 5, 24, 0.88));
+}
+
+/* Once the waves are live the tint is held well back — they already supply the
+   violet, so this only reintroduces the warm end of the gradient rather than
+   lifting hero brightness back up and swamping the text. */
+.hero-waves.is-on ~ .aurora { opacity: 0.4; }
+
+.aurora {
+  position: absolute;
+  top: -22%;
+  left: 50%;
+  width: 120%;
+  height: 130%;
+  transform: translateX(-50%);
+  pointer-events: none;
+  z-index: 1;
+  /* Full strength on its own — this is the whole hero background whenever the
+     canvas isn't running (no WebGL, CDN down, reduced motion). */
+  opacity: 1;
+  background:
+    radial-gradient(circle at 30% 35%, rgba(124, 77, 255, 0.30), transparent 55%),
+    radial-gradient(circle at 68% 30%, rgba(229, 57, 154, 0.22), transparent 55%),
+    radial-gradient(circle at 52% 68%, rgba(244, 102, 31, 0.18), transparent 55%);
+  filter: blur(30px);
+}
+
+/* ----------------------------------------------------------------- marquee */
+
+.marquee { overflow: hidden; mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent); }
+
+.marquee-track {
+  display: flex;
+  align-items: center;
+  gap: 3.5rem;
+  width: max-content;
+  min-height: 84px;
+  animation: scroll 38s linear infinite;
+}
+
+/* Client lockups are the real marks lifted from the company profile deck.
+   Each one's height is set inline to a constant visual AREA (see the note on
+   .pf-logo) so a 5.3:1 wordmark and a square seal carry the same weight.
+   brightness(0) invert(1) flattens whatever colour they are to plain white.
+
+   Every <img> MUST keep its intrinsic width/height attributes and MUST NOT be
+   loading="lazy". width:auto resolves through the attribute aspect ratio, so
+   the track reaches full width on the first layout instead of growing as the
+   files arrive. The scroll keyframes end at translateX(-50%) of the track's
+   own box: if the box is still short when the animation is committed to the
+   compositor, the resolved distance is short too and the marquee crawls, then
+   snaps position the first time a hover re-commits it. */
+.marquee-track img {
+  flex: 0 0 auto;
+  width: auto;
+  object-fit: contain;
+  filter: brightness(0) invert(1);
+  opacity: 0.82;
+  transition: opacity 0.25s;
+}
+
+.marquee:hover .marquee-track { animation-play-state: paused; }
+.marquee-track img:hover { opacity: 1; }
+
+@keyframes scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+
+/* =========================================================== PORTFOLIO ==== */
+
+.chip {
+  padding: 0.55rem 1.15rem;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  color: rgba(255, 255, 255, 0.65);
+  background: rgba(255, 255, 255, 0.03);
+  transition: all 0.2s;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.chip:hover { color: #fff; border-color: var(--border-lit); }
+
+.chip-active {
+  background: var(--grad);
+  border-color: transparent;
+  color: #fff;
+  font-weight: 600;
+}
+
+.pf-carousel { position: relative; }
+
+.pf-viewport { overflow: hidden; }
+
+.pf-track {
+  display: flex;
+  gap: 1.5rem;
+  align-items: stretch;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+  will-change: transform;
+}
+
+.pf-track.no-anim { transition: none; }
+
+/* Two cards on desktop, one on phones — set here, measured back by JS. */
+.pf-slide { flex: 0 0 calc((100% - 1.5rem) / 2); min-width: 0; display: flex; }
+
+.pf-card {
+  display: flex;
+  flex-direction: column;
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 1.6rem;
+  border-radius: 1.5rem;
+  border: 1px solid var(--border);
+  background: linear-gradient(160deg, var(--surface-2), var(--surface) 60%);
+  transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
+}
+
+.pf-card:hover {
+  border-color: var(--border-lit);
+  transform: translateY(-4px);
+  box-shadow: 0 24px 50px -30px rgba(244, 102, 31, 0.6);
+}
+
+.pf-card-top {
+  display: flex;
+  gap: 1.25rem;
+  align-items: flex-start;
+  justify-content: space-between;
+}
+
+.pf-desc {
+  flex: 1 1 auto;
+  font-size: 0.875rem;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.66);
+}
+
+.pf-brand {
+  flex: 0 0 auto;
+  max-width: 42%;
+  text-align: right;
+}
+
+/* --logo-h is set per item by script.js so every lockup covers the same
+   visual area regardless of its aspect ratio. */
+.pf-logo {
+  height: var(--logo-h, 52px);
+  width: auto;
+  max-width: 100%;
+  margin-left: auto;
+  object-fit: contain;
+}
+
+/* The OMAN summit lockup is dark artwork; the source card uses a white version. */
+.pf-logo.invert { filter: brightness(0) invert(1); }
+
+.pf-wordmark {
+  display: block;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 1.15rem;
+  font-weight: 700;
+  line-height: 1.15;
+}
+
+.pf-sub {
+  display: block;
+  margin-top: 0.35rem;
+  font-size: 0.7rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--orange-soft);
+}
+
+.pf-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.25rem 0; }
+
+.pf-tag {
+  padding: 0.35rem 0.8rem;
+  border-radius: 0.6rem;
+  border: 1px solid var(--border);
+  font-size: 0.72rem;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+/* margin-top:auto bottom-anchors the frame so visuals line up across cards
+   whose descriptions run to different lengths. */
+.pf-media {
+  position: relative;
+  margin-top: auto;
+  aspect-ratio: 4 / 3;
+  border-radius: 1rem;
+  overflow: hidden;
+  background: #0a0820;
+}
+
+.pf-media img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transform: scale(1.04);
+  transition: opacity 0.9s ease, transform 6s ease-out;
+}
+
+.pf-media img.is-active { opacity: 1; transform: scale(1); }
+
+.pf-media-dots {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.7rem;
+  display: flex;
+  justify-content: center;
+  gap: 0.35rem;
+  z-index: 2;
+}
+
+.pf-media-dots i {
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.4);
+  transition: all 0.3s;
+}
+
+.pf-media-dots i.on { width: 16px; background: var(--orange); }
+
+.pf-count {
+  position: absolute;
+  top: 0.7rem;
+  right: 0.7rem;
+  z-index: 4;
+  padding: 0.2rem 0.55rem;
+  border-radius: 999px;
+  font-size: 0.68rem;
+  background: rgba(6, 5, 24, 0.72);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(6px);
+  color: rgba(255, 255, 255, 0.8);
+  transition: background 0.25s, border-color 0.25s, color 0.25s;
+}
+
+/* Transparent hit area over the whole frame — opens the gallery. */
+.pf-open {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  display: grid;
+  place-items: center;
+  cursor: zoom-in;
+  background: rgba(6, 5, 24, 0);
+  transition: background 0.25s;
+}
+
+.pf-open-cue {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.6rem 1.1rem;
+  border-radius: 999px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: #fff;
+  background: rgba(6, 5, 24, 0.75);
+  border: 1px solid var(--border-lit);
+  backdrop-filter: blur(8px);
+  opacity: 0;
+  transform: translateY(6px) scale(0.96);
+  transition: opacity 0.25s, transform 0.25s;
+}
+
+.pf-open:hover, .pf-open:focus-visible { background: rgba(6, 5, 24, 0.45); outline: none; }
+.pf-open:hover .pf-open-cue,
+.pf-open:focus-visible .pf-open-cue { opacity: 1; transform: none; }
+.pf-media:hover .pf-count { background: var(--orange); border-color: transparent; color: #fff; }
+
+/* ------------------------------------------------------------- lightbox */
+
+.pf-lb, .pf-zoom {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding: clamp(1rem, 4vw, 3rem) clamp(0.75rem, 4vw, 3rem);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.pf-zoom { z-index: 110; align-items: center; overflow: hidden; }
+
+.pf-lb-backdrop, .pf-zoom-backdrop {
+  position: fixed;
+  inset: 0;
+  background: rgba(4, 3, 16, 0.82);
+  backdrop-filter: blur(10px);
+  opacity: 0;
+  transition: opacity 0.25s;
+}
+
+.pf-lb.open .pf-lb-backdrop, .pf-zoom.open .pf-zoom-backdrop { opacity: 1; }
+
+.pf-lb-panel {
+  position: relative;
+  width: 100%;
+  max-width: 62rem;
+  padding: clamp(1.25rem, 3vw, 2.25rem);
+  border-radius: 1.5rem;
+  border: 1px solid var(--border);
+  background: linear-gradient(160deg, var(--surface-2), var(--surface) 55%);
+  box-shadow: 0 40px 90px -40px rgba(0, 0, 0, 0.9);
+  opacity: 0;
+  transform: translateY(18px) scale(0.985);
+  transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+
+.pf-lb.open .pf-lb-panel { opacity: 1; transform: none; }
+
+.pf-lb-head {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 1.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.pf-lb-brand .pf-logo { margin-left: 0; height: calc(var(--logo-h, 52px) * 1.3); max-width: 320px; }
+.pf-lb-brand .pf-wordmark { font-size: 1.5rem; }
+.pf-lb-brand .pf-sub { letter-spacing: 0.08em; }
+
+.pf-lb-close {
+  flex: 0 0 auto;
+  width: 40px;
+  height: 40px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.05);
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.pf-lb-close:hover { background: var(--orange); border-color: transparent; transform: rotate(90deg); }
+
+.pf-lb-desc {
+  margin-top: 1.25rem;
+  max-width: 46rem;
+  font-size: 0.925rem;
+  line-height: 1.7;
+  color: rgba(255, 255, 255, 0.66);
+}
+
+.pf-lb-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1rem; }
+
+/* Wide shots claim the full row, portraits pair up — as in the source PDFs. */
+.pf-lb-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-auto-flow: row dense;
+  gap: 0.85rem;
+  margin-top: 1.75rem;
+}
+
+/* The ratio lives on an inner sizer, never on the tile itself. On the tile it
+   would fight `align-self: stretch`: stretch sets the height from the row, and
+   aspect-ratio then recomputes the WIDTH from that height, so tiles burst out
+   of their column. The sizer contributes the image's natural height to row
+   sizing, while the tile stays one column wide and stretches to the row. */
+.pf-tile {
+  position: relative;
+  overflow: hidden;
+  border-radius: 0.9rem;
+  border: 1px solid var(--border);
+  background: #0a0820;
+  cursor: zoom-in;
+  align-self: stretch;
+  transition: border-color 0.25s, transform 0.25s;
+}
+
+.pf-tile.wide { grid-column: span 2; }
+
+.pf-tile-sizer { display: block; width: 100%; /* aspect-ratio set inline */ }
+
+.pf-tile:hover { border-color: var(--border-lit); transform: translateY(-3px); }
+
+.pf-tile-bg, .pf-tile-img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+/* Blurred copy of the same file behind the artwork: the letterbox always
+   matches the image's own edges, whatever colour they are. Scaled up so the
+   blur never bleeds transparent pixels in at the sides. */
+.pf-tile-bg { object-fit: cover; filter: blur(26px); transform: scale(1.25); }
+.pf-tile-img { object-fit: contain; }
+
+/* ----------------------------------------------------------- zoom layer */
+
+.pf-zoom-fig {
+  position: relative;
+  max-width: min(92vw, 78rem);
+  max-height: 86vh;
+  opacity: 0;
+  transform: scale(0.97);
+  transition: opacity 0.25s, transform 0.25s cubic-bezier(0.2, 0.8, 0.3, 1);
+}
+
+.pf-zoom.open .pf-zoom-fig { opacity: 1; transform: none; }
+
+.pf-zoom-fig img {
+  max-width: min(92vw, 78rem);
+  max-height: 86vh;
+  width: auto;
+  height: auto;
+  border-radius: 0.9rem;
+  box-shadow: 0 40px 90px -30px rgba(0, 0, 0, 0.9);
+}
+
+.pf-zoom-close, .pf-zoom-nav {
+  position: absolute;
+  z-index: 2;
+  width: 46px;
+  height: 46px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  background: rgba(12, 10, 38, 0.8);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.pf-zoom-close:hover, .pf-zoom-nav:hover { background: var(--orange); border-color: transparent; }
+.pf-zoom-close { top: 1.25rem; right: 1.25rem; }
+.pf-zoom-prev { left: 1.25rem; }
+.pf-zoom-next { right: 1.25rem; }
+
+.pf-zoom-count {
+  position: absolute;
+  bottom: 1.25rem;
+  left: 50%;
+  transform: translateX(-50%);
+  padding: 0.35rem 0.9rem;
+  border-radius: 999px;
+  font-size: 0.8rem;
+  background: rgba(12, 10, 38, 0.8);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(8px);
+  color: rgba(255, 255, 255, 0.85);
+}
+
+/* carousel controls */
+
+.pf-nav {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 44px;
+  height: 44px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  background: rgba(12, 10, 38, 0.85);
+  backdrop-filter: blur(8px);
+  color: #fff;
+  cursor: pointer;
+  transition: all 0.2s;
+  z-index: 3;
+}
+
+.pf-nav:hover { border-color: var(--border-lit); background: var(--orange); }
+
+.pf-nav[disabled] { opacity: 0.3; cursor: default; }
+
+.pf-nav[disabled]:hover { background: rgba(12, 10, 38, 0.85); border-color: var(--border); }
+
+.pf-prev { left: -14px; }
+.pf-next { right: -14px; }
+
+.pf-dots { display: flex; justify-content: center; gap: 0.5rem; margin-top: 2rem; }
+
+.pf-dots button {
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.22);
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.pf-dots button.on { width: 26px; background: var(--grad); }
+
+.pf-empty { padding: 4rem 0; text-align: center; color: rgba(255, 255, 255, 0.45); }
+
+/* ------------------------------------------------------------ content cards */
+
+.path-card, .service-card, .step, .ai-card, .industry-card, .stat, .team-card {
+  border: 1px solid var(--border);
+  border-radius: 1.25rem;
+  background: linear-gradient(160deg, var(--surface-2), var(--surface) 65%);
+  transition: transform 0.3s, border-color 0.3s;
+}
+
+/* Same compact icon-led header as .ai-card: icon and heading share row 1, the
+   copy runs full width beneath. Row gap spaces the paragraphs. */
+.path-card {
+  padding: 1.75rem;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  column-gap: 1rem;
+  row-gap: 0.85rem;
+}
+
+.path-card > * { grid-column: 1 / -1; }
+.path-card > .path-icon { grid-column: 1; grid-row: 1; }
+.path-card > h3 { grid-column: 2; grid-row: 1; }
+
+/* Tilted cards get their transform from vanilla-tilt, so hover feedback here
+   is border + shadow only — a translateY would fight the library. Team cards
+   carry .tilt-card in the markup too, so they use the same rule. */
+.path-card:hover, .service-card:hover, .step:hover, .ai-card:hover, .team-card:hover {
+  border-color: var(--border-lit);
+  box-shadow: 0 28px 60px -34px rgba(124, 77, 255, 0.85);
+}
+
+/* Grid rows built from flex, not grid: an incomplete last row then centres
+   under the rest instead of being left-aligned. Basis math is
+   (100% - (cols-1) * gap) / cols. */
+.card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: stretch;
+  gap: 1.5rem;
+}
+
+.card-grid > * { flex: 0 1 100%; max-width: 100%; }
+
+@media (min-width: 640px) {
+  .card-grid > * {
+    flex-basis: calc((100% - 1.5rem) / 2);
+    max-width: calc((100% - 1.5rem) / 2);
+  }
+}
+
+@media (min-width: 1024px) {
+  .card-grid-3 > * { flex-basis: calc((100% - 3rem) / 3);   max-width: calc((100% - 3rem) / 3); }
+  .card-grid-4 > * { flex-basis: calc((100% - 4.5rem) / 4); max-width: calc((100% - 4.5rem) / 4); }
+  .card-grid-5 > * { flex-basis: calc((100% - 6rem) / 5);   max-width: calc((100% - 6rem) / 5); }
+}
+
+/* ------------------------------------------------- eye-catching card chrome */
+
+/* No `overflow: hidden` here on purpose: per spec it forces transform-style
+   back to flat, which would kill the translateZ depth below. The ::after bloom
+   is inset instead of overhanging, so nothing needs clipping. */
+.tilt-card {
+  position: relative;
+  isolation: isolate;
+  transform-style: preserve-3d;
+  will-change: transform;
+}
+
+/* 1px gradient edge, drawn with a mask so only the border shows. Lights up on
+   hover in the deck's violet -> magenta -> orange ramp. */
+.tilt-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  border-radius: inherit;
+  padding: 1px;
+  background: var(--grad);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  mask-composite: exclude;
+  opacity: 0;
+  transition: opacity 0.35s;
+  pointer-events: none;
+}
+
+.tilt-card:hover::before { opacity: 1; }
+
+/* Warm bloom in the top corner, echoing the deck's gradient corners. Kept
+   inside the card bounds so the card doesn't need overflow clipping. */
+.tilt-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: radial-gradient(115% 85% at 88% -8%, rgba(244, 102, 31, 0.32), transparent 62%);
+  opacity: 0;
+  transition: opacity 0.45s;
+  pointer-events: none;
+}
+
+.tilt-card:hover::after { opacity: 1; }
+
+/* vanilla-tilt's glare sheen. The library appends it as the card's last child,
+   so on the grid-based cards it was being caught by the `.ai-card > *` /
+   `.path-card > * { grid-column: 1 / -1 }` rules. An absolutely-positioned grid
+   child with a *definite* placement resolves its containing block to the grid
+   AREA — which sits inside the card's padding — instead of the padding box, so
+   the sheen stopped 17-29 px short of the left and right edges and the card
+   read as two differently lit surfaces. Only the inline axis was affected,
+   since grid-row stayed auto. `grid-area: auto` puts it back on the padding box
+   in both axes. */
+.tilt-card .js-tilt-glare {
+  grid-area: auto;
+  border-radius: inherit;
+}
+
+/* Depth: with preserve-3d on the card, translateZ lifts these off the surface
+   so the tilt reads as real parallax rather than a flat rotation. */
+.tilt-card .ai-icon,
+.tilt-card .path-icon { transform: translateZ(34px); }
+.tilt-card .service-num,
+.tilt-card .step-num { transform: translateZ(42px); }
+.tilt-card h3,
+.tilt-card h4 { transform: translateZ(20px); }
+.tilt-card > p,
+.tilt-card ul { transform: translateZ(10px); }
+
+/* Big ghost number in the corner — the deck numbers its service pages. */
+.service-card { position: relative; }
+
+.service-card .service-num {
+  position: absolute;
+  top: 0.5rem;
+  right: 1.1rem;
+  font-size: 3.4rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.13);
+  transition: -webkit-text-stroke-color 0.35s;
+  pointer-events: none;
+}
+
+.service-card:hover .service-num { -webkit-text-stroke-color: rgba(244, 102, 31, 0.55); }
+
+.service-card h3 { margin-top: 0; padding-right: 3.5rem; }
+
+.ai-card .ai-icon { transition: background 0.35s, border-color 0.35s, color 0.35s; }
+
+.ai-card:hover .ai-icon {
+  background: var(--grad);
+  border-color: transparent;
+  color: #fff;
+}
+
+.path-card-featured {
+  border-color: var(--border-lit);
+  background: linear-gradient(160deg, rgba(124, 77, 255, 0.18), rgba(244, 102, 31, 0.08));
+}
+
+.path-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 0.9rem;
+  display: grid;
+  place-items: center;
+  font-size: 1.15rem;
+  background: var(--grad);
+  color: #fff;
+}
+
+.path-card h3 { margin-top: 0; font-size: 1.25rem; font-weight: 600; }
+.path-sub { margin-top: 0; font-size: 0.85rem; color: var(--orange-soft); }
+.path-card p:not(.path-sub) { margin-top: 0; font-size: 0.925rem; line-height: 1.65; color: rgba(255, 255, 255, 0.6); }
+
+.path-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1.5rem;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--orange-soft);
+}
+
+.path-link:hover { color: #fff; }
+
+.service-card { padding: 1.5rem; }
+
+.service-num {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--orange);
+}
+
+.service-card h3 { margin-top: 0.6rem; font-size: 1.2rem; font-weight: 600; }
+.service-card > p { margin-top: 0.7rem; font-size: 0.9rem; line-height: 1.6; color: rgba(255, 255, 255, 0.58); }
+.service-card ul { margin-top: 1.1rem; display: flex; flex-direction: column; gap: 0.45rem; }
+
+.service-card li {
+  position: relative;
+  padding-left: 1.1rem;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.72);
+}
+
+.service-card li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.55em;
+  width: 5px;
+  height: 5px;
+  border-radius: 999px;
+  background: var(--orange);
+}
+
+.step { padding: 1.5rem; }
+
+/* Same ghost figure as .service-num, so the two numbered sections match. */
+.step { position: relative; }
+
+.step-num {
+  position: absolute;
+  top: 0.5rem;
+  right: 1.1rem;
+  font-size: 3.4rem;
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  line-height: 1;
+  color: transparent;
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.13);
+  transition: -webkit-text-stroke-color 0.35s;
+  pointer-events: none;
+}
+
+.step:hover .step-num { -webkit-text-stroke-color: rgba(244, 102, 31, 0.55); }
+
+/* The deck sets the approach-stage names in orange. */
+.step h4 { margin-top: 0; padding-right: 3.2rem; font-size: 1.05rem; font-weight: 600; color: var(--orange-soft); }
+.step p { margin-top: 0.6rem; font-size: 0.875rem; line-height: 1.6; color: rgba(255, 255, 255, 0.58); }
+
+/* Compact icon-led layout: the icon and the title share the first row, and
+   anything after them (description, links) spans the full width underneath.
+   Everything spans by default so a new child can't fall into the icon column. */
+.ai-card {
+  padding: 1.25rem 1.35rem;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  align-items: center;
+  column-gap: 0.85rem;
+  row-gap: 0.65rem;
+}
+
+.ai-card > * { grid-column: 1 / -1; }
+.ai-card > .ai-icon { grid-column: 1; grid-row: 1; }
+.ai-card > h3,
+.ai-card > h4 { grid-column: 2; grid-row: 1; }
+
+.ai-icon {
+  width: 42px;
+  height: 42px;
+  border-radius: 0.8rem;
+  display: grid;
+  place-items: center;
+  background: rgba(244, 102, 31, 0.12);
+  border: 1px solid var(--border-lit);
+  color: var(--orange-soft);
+}
+
+.ai-card h4 { margin-top: 0; font-size: 1rem; font-weight: 600; line-height: 1.3; }
+.ai-card p { margin-top: 0; font-size: 0.85rem; line-height: 1.55; color: rgba(255, 255, 255, 0.55); }
+
+.industry-card {
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  text-align: center;
+}
+
+.industry-card i { font-size: 1.4rem; color: var(--orange-soft); }
+.industry-card span { font-size: 0.85rem; color: rgba(255, 255, 255, 0.75); }
+.industry-card:hover { transform: translateY(-4px); border-color: var(--border-lit); }
+
+.pill-card {
+  padding: 1.1rem 1.25rem;
+  border-radius: 1rem;
+  border: 1px solid var(--border);
+  background: rgba(124, 77, 255, 0.08);
+  font-size: 0.925rem;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.88);
+  transition: all 0.25s;
+}
+
+.pill-card:hover { border-color: var(--border-lit); background: rgba(244, 102, 31, 0.10); transform: translateY(-3px); }
+
+/* Why-choose-us and Our Team are label-only cards — no body copy — so they run
+   as one compact row (icon left, label right) on a translucent surface that
+   lets the network background read through. No backdrop-filter: like any other
+   grouping property it would force transform-style back to flat and kill the
+   translateZ depth. */
+.reason-card, .team-card {
+  padding: 0.85rem 1rem;
+  column-gap: 0.75rem;
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.reason-card .ai-icon, .team-card .ai-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 0.65rem;
+  font-size: 0.9rem;
+}
+
+.reason-card h3, .team-card h4 {
+  margin-top: 0;
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.3;
+  letter-spacing: -0.01em;
+}
+
+.stat { padding: 2rem; text-align: center; }
+
+.stat-num {
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-size: clamp(2.25rem, 4vw, 3rem);
+  font-weight: 700;
+  background: var(--grad);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.stat-label { margin-top: 0.4rem; font-size: 0.9rem; color: rgba(255, 255, 255, 0.5); }
+
+/* ------------------------------------------------------------------ forms */
+
+.contact-form {
+  padding: 2rem;
+  border-radius: 1.5rem;
+  border: 1px solid var(--border);
+  background: linear-gradient(160deg, var(--surface-2), var(--surface) 65%);
+}
+
+.input-field {
+  width: 100%;
+  padding: 0.85rem 1.1rem;
+  border-radius: 0.8rem;
+  border: 1px solid var(--border);
+  background: rgba(255, 255, 255, 0.04);
+  color: #fff;
+  font-size: 0.925rem;
+  transition: border-color 0.2s, background 0.2s;
+}
+
+.input-field::placeholder { color: rgba(255, 255, 255, 0.35); }
+.input-field:focus { outline: none; border-color: var(--orange); background: rgba(255, 255, 255, 0.07); }
+.input-field option { background: var(--surface); }
+
+.contact-icon {
+  width: 42px;
+  height: 42px;
+  flex: 0 0 auto;
+  border-radius: 0.8rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  background: rgba(244, 102, 31, 0.10);
+  color: var(--orange-soft);
+}
+
+.whatsapp-btn {
+  padding: 0.9rem 1.6rem;
+  border-radius: 999px;
+  width: fit-content;
+  font-weight: 600;
+  background: #25d366;
+  color: #06210f;
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.whatsapp-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 28px -12px rgba(37, 211, 102, 0.8); }
+
+/* -------------------------------------------------------------------- FAQ */
+
+.faq { padding: 1.4rem 0; cursor: pointer; }
+
+.faq summary {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 1.05rem;
+  font-weight: 500;
+  list-style: none;
+}
+
+.faq summary::-webkit-details-marker { display: none; }
+.faq summary i { color: var(--orange-soft); font-size: 0.85rem; transition: transform 0.3s; }
+.faq[open] summary i { transform: rotate(45deg); }
+.faq p { margin-top: 0.9rem; font-size: 0.95rem; line-height: 1.7; color: rgba(255, 255, 255, 0.58); }
+
+/* -------------------------------------------------------------------- CTA */
+
+.cta {
+  max-width: 72rem;
+  margin: 0 auto;
+  padding: 4rem 2rem;
+  border-radius: 2rem;
+  text-align: center;
+  border: 1px solid var(--border-lit);
+  background:
+    radial-gradient(ellipse at 20% 0%, rgba(124, 77, 255, 0.28), transparent 60%),
+    radial-gradient(ellipse at 85% 100%, rgba(244, 102, 31, 0.24), transparent 60%),
+    var(--surface);
+}
+
+.chat-fab {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 60;
+  width: 56px;
+  height: 56px;
+  border-radius: 999px;
+  display: grid;
+  place-items: center;
+  font-size: 1.5rem;
+  color: #06210f;
+  background: #25d366;
+  box-shadow: 0 12px 30px -10px rgba(37, 211, 102, 0.8);
+  transition: transform 0.2s;
+}
+
+.chat-fab:hover { transform: scale(1.08); }
+
+/* ------------------------------------------------------------- responsive */
+
+@media (max-width: 768px) {
+  /* The five filters wrap to three lines on a phone and leave a ragged right
+     edge — at 390 px a lone "Photography" sat on its own line with 216 px of
+     dead space beside it. Growing every chip shares out whatever is left over
+     on its own flex line, so each line ends flush no matter where it breaks.
+     Desktop keeps them intact: all five fit one line there with room to spare,
+     and stretching them would just read as padding. */
+  #portfolio-filters .chip { flex: 1 1 auto; }
+
+  .pf-slide { flex: 0 0 100%; }
+  .pf-card { padding: 1.25rem; }
+  /* Stacked: stretch (not flex-start) so the description wraps to the card
+     width instead of sizing to max-content. */
+  .pf-card-top { flex-direction: column; align-items: stretch; gap: 1rem; }
+  .pf-brand { max-width: 100%; text-align: left; }
+  .pf-logo { height: calc(var(--logo-h, 52px) * 0.85); margin-left: 0; margin-right: auto; }
+  .pf-prev { left: 0; }
+  .pf-next { right: 0; }
+  /* Narrow viewport shows only 2-3 lockups at a time, so the desktop 38s reads
+     as barely moving. Shorter loop keeps the perceived speed the same. */
+  .marquee-track { gap: 2rem; animation-duration: 20s; }
+  .cta { padding: 3rem 1.25rem; }
+
+  /* One column: every visual full width, strict source order. */
+  .pf-lb-grid { grid-template-columns: 1fr; }
+  .pf-tile.wide { grid-column: span 1; }
+  .pf-lb-head { gap: 1rem; }
+  .pf-zoom-prev { left: 0.5rem; }
+  .pf-zoom-next { right: 0.5rem; }
+  .pf-zoom-close { top: 0.5rem; right: 0.5rem; }
+  /* Touch has no hover, so keep the affordance permanently visible. */
+  .pf-open-cue { opacity: 1; transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pf-lb-panel, .pf-zoom-fig, .pf-lb-backdrop, .pf-zoom-backdrop { transition: none; }
+  .pf-open-cue { transition: none; }
+  .pf-tile:hover { transform: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .marquee-track { animation: none; }
+  .pf-track { transition: none; }
+  .pf-media img { transition: opacity 0.2s; transform: none; }
+}
