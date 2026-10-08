@@ -23,8 +23,8 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
       // Deliberately dark: the hero sits on top of this, so the waves read as
       // texture rather than competing with the orange badge and body copy.
       // Vanta's lighting brightens the base colour a lot, so this is set far
-      // darker than the violet it should end up looking like.
-      color: 0x2a1466,
+      // darker than the brand navy it should end up looking like.
+      color: 0x16173f,
       shininess: 30,
       waveHeight: 18,
       waveSpeed: 0.7,
@@ -58,8 +58,8 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
       minWidth: 200,
       scale: 1,
       scaleMobile: 1,
-      color: 0x7c4dff,        // --violet; body::before adds the magenta/orange
-      backgroundColor: 0x060518,
+      color: 0x787ca9,        // --lavender; body::before adds the orange/pink
+      backgroundColor: 0x0b0c26, // --bg
       points: 9,
       maxDistance: 21,
       spacing: 18,
