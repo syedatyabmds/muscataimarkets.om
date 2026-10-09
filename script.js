@@ -24,7 +24,7 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
       // texture rather than competing with the orange badge and body copy.
       // Vanta's lighting brightens the base colour a lot, so this is set far
       // darker than the brand navy it should end up looking like.
-      color: 0x16173f,
+      color: 0x1f1631,        // navy with a warm cast, so the crests pick up the orange tint
       shininess: 30,
       waveHeight: 18,
       waveSpeed: 0.7,
@@ -58,7 +58,7 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
       minWidth: 200,
       scale: 1,
       scaleMobile: 1,
-      color: 0x787ca9,        // --lavender; body::before adds the orange/pink
+      color: 0xd9542a,        // a step under --orange so the network reads warm, not loud
       backgroundColor: 0x0b0c26, // --bg
       points: 9,
       maxDistance: 21,
