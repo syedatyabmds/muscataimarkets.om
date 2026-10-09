@@ -18,11 +18,13 @@
   --sky:         #30c1ff;
   --lavender:    #787ca9;
 
-  /* Surfaces: brand navy and darker steps of it for the page field */
-  --bg:          #0b0c26;
-  --bg-2:        #14153a;
-  --surface:     #1a1b48;
-  --surface-2:   var(--navy);
+  /* Surfaces: brand navy pulled towards the orange end of the palette, so the
+     page field reads as a warm ink (aubergine) that carries the orange
+     accents instead of competing with them. Navy stays as a cool undertone. */
+  --bg:          #120c18;
+  --bg-2:        #1c1220;
+  --surface:     #1f1520;
+  --surface-2:   #2c1a26;
 
   /* Lighter tint of the brand orange for small accent text on navy */
   --orange-soft: #f6845f;
@@ -88,7 +90,7 @@ body.topology-on::before {
     radial-gradient(ellipse 90% 55% at 12% 0%, rgba(240, 90, 44, 0.30), transparent 60%),
     radial-gradient(ellipse 70% 50% at 88% 12%, rgba(255, 122, 61, 0.16), transparent 60%),
     radial-gradient(ellipse 80% 45% at 90% 100%, rgba(240, 90, 44, 0.18), transparent 65%),
-    linear-gradient(180deg, rgba(20, 21, 58, 0.70) 0%, rgba(11, 12, 38, 0.80) 45%);
+    linear-gradient(180deg, rgba(28, 18, 32, 0.70) 0%, rgba(18, 12, 24, 0.80) 45%);
 }
 
 ::selection { background: var(--orange); color: #fff; }
@@ -126,7 +128,7 @@ header nav.mobile-open {
   left: 0;
   right: 0;
   gap: 1.25rem;
-  background: rgba(11, 12, 38, 0.97);
+  background: rgba(18, 12, 24, 0.97);
   backdrop-filter: blur(20px);
   border-top: 1px solid var(--border);
   padding: 1.5rem;
@@ -271,8 +273,8 @@ h1, h2, h3, h4, .display, .display-sm {
   inset: 0;
   z-index: 1;
   background:
-    radial-gradient(ellipse 64% 58% at 50% 46%, rgba(11, 12, 38, 0.91), rgba(11, 12, 38, 0.44) 68%, rgba(11, 12, 38, 0.10)),
-    linear-gradient(180deg, rgba(11, 12, 38, 0.55), rgba(11, 12, 38, 0.22) 45%, rgba(11, 12, 38, 0.88));
+    radial-gradient(ellipse 64% 58% at 50% 46%, rgba(18, 12, 24, 0.91), rgba(18, 12, 24, 0.44) 68%, rgba(18, 12, 24, 0.10)),
+    linear-gradient(180deg, rgba(18, 12, 24, 0.55), rgba(18, 12, 24, 0.22) 45%, rgba(18, 12, 24, 0.88));
 }
 
 /* Once the waves are live the tint is held well back — they already supply the
@@ -427,7 +429,9 @@ h1, h2, h3, h4, .display, .display-sm {
   padding: 1.6rem;
   border-radius: 1.5rem;
   border: 1px solid var(--border);
-  background: linear-gradient(160deg, var(--surface-2), var(--surface) 60%);
+  background:
+    radial-gradient(120% 70% at 100% 0%, rgba(240, 90, 44, 0.12), transparent 60%),
+    linear-gradient(160deg, var(--surface-2), var(--surface) 60%);
   transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
 
@@ -550,7 +554,7 @@ h1, h2, h3, h4, .display, .display-sm {
   padding: 0.2rem 0.55rem;
   border-radius: 999px;
   font-size: 0.68rem;
-  background: rgba(11, 12, 38, 0.72);
+  background: rgba(18, 12, 24, 0.72);
   border: 1px solid var(--border);
   backdrop-filter: blur(6px);
   color: rgba(255, 255, 255, 0.8);
@@ -565,7 +569,7 @@ h1, h2, h3, h4, .display, .display-sm {
   display: grid;
   place-items: center;
   cursor: zoom-in;
-  background: rgba(11, 12, 38, 0);
+  background: rgba(18, 12, 24, 0);
   transition: background 0.25s;
 }
 
@@ -578,7 +582,7 @@ h1, h2, h3, h4, .display, .display-sm {
   font-size: 0.82rem;
   font-weight: 600;
   color: #fff;
-  background: rgba(11, 12, 38, 0.75);
+  background: rgba(18, 12, 24, 0.75);
   border: 1px solid var(--border-lit);
   backdrop-filter: blur(8px);
   opacity: 0;
@@ -586,7 +590,7 @@ h1, h2, h3, h4, .display, .display-sm {
   transition: opacity 0.25s, transform 0.25s;
 }
 
-.pf-open:hover, .pf-open:focus-visible { background: rgba(11, 12, 38, 0.45); outline: none; }
+.pf-open:hover, .pf-open:focus-visible { background: rgba(18, 12, 24, 0.45); outline: none; }
 .pf-open:hover .pf-open-cue,
 .pf-open:focus-visible .pf-open-cue { opacity: 1; transform: none; }
 .pf-media:hover .pf-count { background: var(--orange); border-color: transparent; color: #fff; }
@@ -749,7 +753,7 @@ h1, h2, h3, h4, .display, .display-sm {
   display: grid;
   place-items: center;
   border: 1px solid var(--border);
-  background: rgba(20, 21, 58, 0.8);
+  background: rgba(28, 18, 32, 0.8);
   backdrop-filter: blur(8px);
   color: #fff;
   cursor: pointer;
@@ -769,7 +773,7 @@ h1, h2, h3, h4, .display, .display-sm {
   padding: 0.35rem 0.9rem;
   border-radius: 999px;
   font-size: 0.8rem;
-  background: rgba(20, 21, 58, 0.8);
+  background: rgba(28, 18, 32, 0.8);
   border: 1px solid var(--border);
   backdrop-filter: blur(8px);
   color: rgba(255, 255, 255, 0.85);
@@ -787,7 +791,7 @@ h1, h2, h3, h4, .display, .display-sm {
   display: grid;
   place-items: center;
   border: 1px solid var(--border);
-  background: rgba(20, 21, 58, 0.85);
+  background: rgba(28, 18, 32, 0.85);
   backdrop-filter: blur(8px);
   color: #fff;
   cursor: pointer;
@@ -799,7 +803,7 @@ h1, h2, h3, h4, .display, .display-sm {
 
 .pf-nav[disabled] { opacity: 0.3; cursor: default; }
 
-.pf-nav[disabled]:hover { background: rgba(20, 21, 58, 0.85); border-color: var(--border); }
+.pf-nav[disabled]:hover { background: rgba(28, 18, 32, 0.85); border-color: var(--border); }
 
 .pf-prev { left: -14px; }
 .pf-next { right: -14px; }
@@ -825,7 +829,9 @@ h1, h2, h3, h4, .display, .display-sm {
   border: 1px solid var(--border);
   border-top-color: var(--border-lit);
   border-radius: 1.25rem;
-  background: linear-gradient(160deg, var(--surface-2), var(--surface) 65%);
+  background:
+    radial-gradient(120% 80% at 100% 0%, rgba(240, 90, 44, 0.10), transparent 60%),
+    linear-gradient(160deg, var(--surface-2), var(--surface) 65%);
   transition: transform 0.3s, border-color 0.3s;
 }
 

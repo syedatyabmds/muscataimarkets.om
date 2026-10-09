@@ -59,7 +59,7 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
       scale: 1,
       scaleMobile: 1,
       color: 0xd9542a,        // a step under --orange so the network reads warm, not loud
-      backgroundColor: 0x0b0c26, // --bg
+      backgroundColor: 0x120c18, // --bg
       points: 9,
       maxDistance: 21,
       spacing: 18,
