@@ -1,49 +1,23 @@
 /* ==========================================================================
    Muscat AI Markets — theme
-   Palette and typography follow the Macro Digital Brand Identity Guidelines
-   (2026): brand navy field washing into crimson/magenta, orange as the primary
-   and dominant accent (it leads every gradient, heading and icon), Helvena for headlines and Poppins for everything else.
+   Palette and typography follow the Macro Digital company profile deck:
+   deep indigo/violet field, magenta mid-tones, orange as the primary accent.
    ========================================================================== */
 
 :root {
-  /* Brand primary (guideline 3.1) */
-  --orange:      #f05a2c;
-  --navy:        #24255a;
-  --black:       #000000;
-  --white:       #ffffff;
-
-  /* Brand secondary (guideline 3.2) */
-  --pink:        #ff6bb5;
-  --coral:       #ff8a8a;
-  --sky:         #30c1ff;
-  --lavender:    #787ca9;
-
-  /* Surfaces: brand navy pulled towards the orange end of the palette, so the
-     page field reads as a warm ink (aubergine) that carries the orange
-     accents instead of competing with them. Navy stays as a cool undertone. */
-  --bg:          #120c18;
-  --bg-2:        #1c1220;
-  --surface:     #1f1520;
-  --surface-2:   #2c1a26;
-
-  /* Lighter tint of the brand orange for small accent text on navy */
-  --orange-soft: #f6845f;
-  /* Warm amber step between orange and pink, used to keep gradients orange-led */
-  --orange-warm: #ff7a3d;
-  --orange-deep: #c9401a;
-
+  --bg:          #060518;
+  --bg-2:        #0c0a26;
+  --surface:     #121030;
+  --surface-2:   #191540;
+  --orange:      #f4661f;
+  --orange-soft: #ff8a3d;
+  --magenta:     #e5399a;
+  --violet:      #7c4dff;
+  --violet-soft: #a78bfa;
+  --blue:        #3b6fff;
   --border:      rgba(255, 255, 255, 0.09);
-  --border-lit:  rgba(240, 90, 44, 0.55);
-  --border-warm: rgba(240, 90, 44, 0.22);
-  /* Orange-led: pink only arrives at the far end of the ramp. */
-  --grad:        linear-gradient(120deg, var(--orange) 0%, var(--orange-warm) 55%, var(--pink) 115%);
-  --grad-line:   linear-gradient(90deg, transparent, var(--orange) 20%, var(--orange-warm) 60%, transparent);
-
-  /* Typography (guideline 4.1-4.3). Helvena is a licensed face: it is used
-     when available, otherwise headlines fall back to Poppins, which is
-     vendored locally. */
-  --font-head:   'Helvena', 'Poppins', system-ui, -apple-system, sans-serif;
-  --font-body:   'Poppins', system-ui, -apple-system, sans-serif;
+  --border-lit:  rgba(244, 102, 31, 0.45);
+  --grad:        linear-gradient(120deg, var(--violet), var(--magenta) 55%, var(--orange));
 }
 
 * { box-sizing: border-box; }
@@ -52,7 +26,7 @@ html { scroll-behavior: smooth; }
 
 body {
   background: var(--bg);
-  font-family: var(--font-body);
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
   overflow-x: hidden;
 }
 
@@ -68,7 +42,7 @@ body {
 
 #site-topology canvas { position: absolute !important; inset: 0; }
 
-/* Deep vertical wash so the page reads brand navy rather than flat black. Opaque
+/* Deep vertical wash so the page reads indigo rather than flat black. Opaque
    on its own; once TOPOLOGY is live it drops to a translucent variant so the
    animation shows through — see .topology-on below. */
 body::before {
@@ -77,9 +51,8 @@ body::before {
   inset: 0;
   z-index: -2;
   background:
-    radial-gradient(ellipse 90% 55% at 12% 0%, rgba(240, 90, 44, 0.28), transparent 60%),
-    radial-gradient(ellipse 70% 50% at 88% 12%, rgba(255, 122, 61, 0.14), transparent 60%),
-    radial-gradient(ellipse 80% 45% at 90% 100%, rgba(240, 90, 44, 0.16), transparent 65%),
+    radial-gradient(ellipse 90% 55% at 12% 0%, rgba(124, 77, 255, 0.20), transparent 60%),
+    radial-gradient(ellipse 70% 50% at 88% 12%, rgba(229, 57, 154, 0.14), transparent 60%),
     linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 45%);
 }
 
@@ -87,37 +60,12 @@ body::before {
    copy legible over it. Measured, not guessed — see AGENTS.md. */
 body.topology-on::before {
   background:
-    radial-gradient(ellipse 90% 55% at 12% 0%, rgba(240, 90, 44, 0.30), transparent 60%),
-    radial-gradient(ellipse 70% 50% at 88% 12%, rgba(255, 122, 61, 0.16), transparent 60%),
-    radial-gradient(ellipse 80% 45% at 90% 100%, rgba(240, 90, 44, 0.18), transparent 65%),
-    linear-gradient(180deg, rgba(28, 18, 32, 0.70) 0%, rgba(18, 12, 24, 0.80) 45%);
+    radial-gradient(ellipse 90% 55% at 12% 0%, rgba(124, 77, 255, 0.22), transparent 60%),
+    radial-gradient(ellipse 70% 50% at 88% 12%, rgba(229, 57, 154, 0.16), transparent 60%),
+    linear-gradient(180deg, rgba(12, 10, 38, 0.66) 0%, rgba(6, 5, 24, 0.76) 45%);
 }
 
 ::selection { background: var(--orange); color: #fff; }
-
-/* Orange scrollbar, so the brand colour frames the page as you scroll. */
-html { scrollbar-color: var(--orange) var(--bg); }
-::-webkit-scrollbar { width: 10px; }
-::-webkit-scrollbar-track { background: var(--bg); }
-::-webkit-scrollbar-thumb { background: var(--orange); border-radius: 999px; border: 2px solid var(--bg); }
-
-/* Orange hairline under the fixed header and above the footer. */
-.site-header::after,
-.site-footer::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: var(--grad-line);
-  pointer-events: none;
-}
-.site-header::after { bottom: -1px; }
-.site-footer { position: relative; }
-.site-footer::before { top: -1px; }
-
-.site-header nav a:hover,
-.site-footer a:hover { color: var(--orange-soft); }
 
 /* Mobile nav */
 header nav.mobile-open {
@@ -128,7 +76,7 @@ header nav.mobile-open {
   left: 0;
   right: 0;
   gap: 1.25rem;
-  background: rgba(18, 12, 24, 0.97);
+  background: rgba(6, 5, 24, 0.97);
   backdrop-filter: blur(20px);
   border-top: 1px solid var(--border);
   padding: 1.5rem;
@@ -137,8 +85,8 @@ header nav.mobile-open {
 /* --------------------------------------------------------------- typography */
 
 h1, h2, h3, h4, .display, .display-sm {
-  font-family: var(--font-head);
-  letter-spacing: -0.025em;
+  font-family: 'Plus Jakarta Sans', system-ui, sans-serif;
+  letter-spacing: -0.02em;
 }
 
 .display {
@@ -153,10 +101,8 @@ h1, h2, h3, h4, .display, .display-sm {
   line-height: 1.1;
 }
 
-/* The deck pairs a light word with a bold word — mirror that here. On
-   section headings the bold word carries the brand orange. */
-.thin { font-weight: 300; color: rgba(255, 255, 255, 0.86); }
-.display-sm { color: var(--orange-soft); }
+/* The deck pairs a light word with a bold word — mirror that here. */
+.thin { font-weight: 300; color: rgba(255, 255, 255, 0.82); }
 
 .eyebrow {
   display: inline-block;
@@ -165,18 +111,6 @@ h1, h2, h3, h4, .display, .display-sm {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--orange-soft);
-}
-
-/* Short orange bar leading every eyebrow label. */
-.eyebrow::before {
-  content: '';
-  display: inline-block;
-  width: 1.6rem;
-  height: 2px;
-  margin-right: 0.65rem;
-  vertical-align: middle;
-  border-radius: 2px;
-  background: var(--grad);
 }
 
 .accent { color: var(--orange-soft); font-style: normal; }
@@ -190,7 +124,7 @@ h1, h2, h3, h4, .display, .display-sm {
 
 /* A left rule in the deck's orange precedes most body copy. */
 .rule-left {
-  border-left: 3px solid var(--orange);
+  border-left: 2px solid var(--orange);
   padding-left: 1.15rem;
 }
 
@@ -202,7 +136,7 @@ h1, h2, h3, h4, .display, .display-sm {
   font-size: 0.8rem;
   border-radius: 999px;
   border: 1px solid var(--border-lit);
-  background: rgba(240, 90, 44, 0.14);
+  background: rgba(244, 102, 31, 0.10);
   color: var(--orange-soft);
 }
 
@@ -218,28 +152,26 @@ h1, h2, h3, h4, .display, .display-sm {
   cursor: pointer;
 }
 
-/* Solid brand orange, as the guideline's primary colour block. */
 .btn-primary {
-  background: linear-gradient(120deg, var(--orange), var(--orange-warm));
+  background: var(--grad);
   color: #fff;
-  box-shadow: 0 12px 34px -10px rgba(240, 90, 44, 0.85), 0 0 0 1px rgba(255, 122, 61, 0.35) inset;
+  box-shadow: 0 10px 30px -12px rgba(244, 102, 31, 0.7);
 }
 
 .btn-primary:hover {
-  background: linear-gradient(120deg, #f26a40, #ff8a52);
   transform: translateY(-2px);
-  box-shadow: 0 18px 42px -10px rgba(240, 90, 44, 1);
+  box-shadow: 0 16px 38px -12px rgba(244, 102, 31, 0.85);
 }
 
 .btn-ghost {
-  border: 1px solid var(--border-lit);
+  border: 1px solid var(--border);
   color: #fff;
   background: rgba(255, 255, 255, 0.03);
 }
 
 .btn-ghost:hover {
   border-color: var(--border-lit);
-  background: rgba(240, 90, 44, 0.08);
+  background: rgba(244, 102, 31, 0.08);
   transform: translateY(-2px);
 }
 
@@ -273,53 +205,14 @@ h1, h2, h3, h4, .display, .display-sm {
   inset: 0;
   z-index: 1;
   background:
-    radial-gradient(ellipse 64% 58% at 50% 46%, rgba(18, 12, 24, 0.91), rgba(18, 12, 24, 0.44) 68%, rgba(18, 12, 24, 0.10)),
-    linear-gradient(180deg, rgba(18, 12, 24, 0.55), rgba(18, 12, 24, 0.22) 45%, rgba(18, 12, 24, 0.88));
+    radial-gradient(ellipse 64% 58% at 50% 46%, rgba(6, 5, 24, 0.91), rgba(6, 5, 24, 0.44) 68%, rgba(6, 5, 24, 0.10)),
+    linear-gradient(180deg, rgba(6, 5, 24, 0.55), rgba(6, 5, 24, 0.22) 45%, rgba(6, 5, 24, 0.88));
 }
 
 /* Once the waves are live the tint is held well back — they already supply the
-   navy, so this only reintroduces the warm end of the gradient rather than
+   violet, so this only reintroduces the warm end of the gradient rather than
    lifting hero brightness back up and swamping the text. */
-.hero-waves.is-on ~ .aurora { opacity: 0.75; }
-
-/* Orange horizon glow along the bottom of the hero, so the first screen
-   lands on the brand colour. Sits under the content (z-index 1). */
-.hero-glow {
-  position: absolute;
-  left: 50%;
-  bottom: -38%;
-  width: 140%;
-  height: 70%;
-  transform: translateX(-50%);
-  z-index: 1;
-  pointer-events: none;
-  background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(240, 90, 44, 0.42), rgba(240, 90, 44, 0.12) 45%, transparent 70%);
-  filter: blur(10px);
-}
-
-/* Orange-outlined capability tags under the hero buttons. */
-.hero-tag {
-  padding: 0.5rem 1rem;
-  border-radius: 999px;
-  border: 1px solid var(--border-warm);
-  background: rgba(240, 90, 44, 0.08);
-  color: rgba(255, 255, 255, 0.78);
-}
-.hero-tag::before {
-  content: '';
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  margin-right: 0.55rem;
-  vertical-align: middle;
-  border-radius: 999px;
-  background: var(--orange);
-}
-
-/* Client strip sits on a faint orange band. */
-.clients-band {
-  background: linear-gradient(90deg, rgba(240, 90, 44, 0.02), rgba(240, 90, 44, 0.09) 50%, rgba(240, 90, 44, 0.02));
-}
+.hero-waves.is-on ~ .aurora { opacity: 0.4; }
 
 .aurora {
   position: absolute;
@@ -334,9 +227,9 @@ h1, h2, h3, h4, .display, .display-sm {
      canvas isn't running (no WebGL, CDN down, reduced motion). */
   opacity: 1;
   background:
-    radial-gradient(circle at 28% 35%, rgba(240, 90, 44, 0.34), transparent 55%),
-    radial-gradient(circle at 72% 30%, rgba(255, 122, 61, 0.22), transparent 55%),
-    radial-gradient(circle at 52% 72%, rgba(255, 107, 181, 0.14), transparent 55%);
+    radial-gradient(circle at 30% 35%, rgba(124, 77, 255, 0.30), transparent 55%),
+    radial-gradient(circle at 68% 30%, rgba(229, 57, 154, 0.22), transparent 55%),
+    radial-gradient(circle at 52% 68%, rgba(244, 102, 31, 0.18), transparent 55%);
   filter: blur(30px);
 }
 
@@ -398,7 +291,7 @@ h1, h2, h3, h4, .display, .display-sm {
 .chip:hover { color: #fff; border-color: var(--border-lit); }
 
 .chip-active {
-  background: var(--orange);
+  background: var(--grad);
   border-color: transparent;
   color: #fff;
   font-weight: 600;
@@ -429,16 +322,14 @@ h1, h2, h3, h4, .display, .display-sm {
   padding: 1.6rem;
   border-radius: 1.5rem;
   border: 1px solid var(--border);
-  background:
-    radial-gradient(120% 70% at 100% 0%, rgba(240, 90, 44, 0.12), transparent 60%),
-    linear-gradient(160deg, var(--surface-2), var(--surface) 60%);
+  background: linear-gradient(160deg, var(--surface-2), var(--surface) 60%);
   transition: border-color 0.3s, transform 0.3s, box-shadow 0.3s;
 }
 
 .pf-card:hover {
   border-color: var(--border-lit);
   transform: translateY(-4px);
-  box-shadow: 0 24px 50px -30px rgba(240, 90, 44, 0.6);
+  box-shadow: 0 24px 50px -30px rgba(244, 102, 31, 0.6);
 }
 
 .pf-card-top {
@@ -476,7 +367,7 @@ h1, h2, h3, h4, .display, .display-sm {
 
 .pf-wordmark {
   display: block;
-  font-family: var(--font-head);
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 1.15rem;
   font-weight: 700;
   line-height: 1.15;
@@ -496,7 +387,7 @@ h1, h2, h3, h4, .display, .display-sm {
 .pf-tag {
   padding: 0.35rem 0.8rem;
   border-radius: 0.6rem;
-  border: 1px solid var(--border-warm);
+  border: 1px solid var(--border);
   font-size: 0.72rem;
   color: rgba(255, 255, 255, 0.72);
 }
@@ -509,7 +400,7 @@ h1, h2, h3, h4, .display, .display-sm {
   aspect-ratio: 4 / 3;
   border-radius: 1rem;
   overflow: hidden;
-  background: #0e0f2e;
+  background: #0a0820;
 }
 
 .pf-media img {
@@ -554,7 +445,7 @@ h1, h2, h3, h4, .display, .display-sm {
   padding: 0.2rem 0.55rem;
   border-radius: 999px;
   font-size: 0.68rem;
-  background: rgba(18, 12, 24, 0.72);
+  background: rgba(6, 5, 24, 0.72);
   border: 1px solid var(--border);
   backdrop-filter: blur(6px);
   color: rgba(255, 255, 255, 0.8);
@@ -569,7 +460,7 @@ h1, h2, h3, h4, .display, .display-sm {
   display: grid;
   place-items: center;
   cursor: zoom-in;
-  background: rgba(18, 12, 24, 0);
+  background: rgba(6, 5, 24, 0);
   transition: background 0.25s;
 }
 
@@ -582,7 +473,7 @@ h1, h2, h3, h4, .display, .display-sm {
   font-size: 0.82rem;
   font-weight: 600;
   color: #fff;
-  background: rgba(18, 12, 24, 0.75);
+  background: rgba(6, 5, 24, 0.75);
   border: 1px solid var(--border-lit);
   backdrop-filter: blur(8px);
   opacity: 0;
@@ -590,7 +481,7 @@ h1, h2, h3, h4, .display, .display-sm {
   transition: opacity 0.25s, transform 0.25s;
 }
 
-.pf-open:hover, .pf-open:focus-visible { background: rgba(18, 12, 24, 0.45); outline: none; }
+.pf-open:hover, .pf-open:focus-visible { background: rgba(6, 5, 24, 0.45); outline: none; }
 .pf-open:hover .pf-open-cue,
 .pf-open:focus-visible .pf-open-cue { opacity: 1; transform: none; }
 .pf-media:hover .pf-count { background: var(--orange); border-color: transparent; color: #fff; }
@@ -614,7 +505,7 @@ h1, h2, h3, h4, .display, .display-sm {
 .pf-lb-backdrop, .pf-zoom-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(6, 6, 22, 0.82);
+  background: rgba(4, 3, 16, 0.82);
   backdrop-filter: blur(10px);
   opacity: 0;
   transition: opacity 0.25s;
@@ -696,7 +587,7 @@ h1, h2, h3, h4, .display, .display-sm {
   overflow: hidden;
   border-radius: 0.9rem;
   border: 1px solid var(--border);
-  background: #0e0f2e;
+  background: #0a0820;
   cursor: zoom-in;
   align-self: stretch;
   transition: border-color 0.25s, transform 0.25s;
@@ -753,7 +644,7 @@ h1, h2, h3, h4, .display, .display-sm {
   display: grid;
   place-items: center;
   border: 1px solid var(--border);
-  background: rgba(28, 18, 32, 0.8);
+  background: rgba(12, 10, 38, 0.8);
   backdrop-filter: blur(8px);
   color: #fff;
   cursor: pointer;
@@ -773,7 +664,7 @@ h1, h2, h3, h4, .display, .display-sm {
   padding: 0.35rem 0.9rem;
   border-radius: 999px;
   font-size: 0.8rem;
-  background: rgba(28, 18, 32, 0.8);
+  background: rgba(12, 10, 38, 0.8);
   border: 1px solid var(--border);
   backdrop-filter: blur(8px);
   color: rgba(255, 255, 255, 0.85);
@@ -791,7 +682,7 @@ h1, h2, h3, h4, .display, .display-sm {
   display: grid;
   place-items: center;
   border: 1px solid var(--border);
-  background: rgba(28, 18, 32, 0.85);
+  background: rgba(12, 10, 38, 0.85);
   backdrop-filter: blur(8px);
   color: #fff;
   cursor: pointer;
@@ -803,7 +694,7 @@ h1, h2, h3, h4, .display, .display-sm {
 
 .pf-nav[disabled] { opacity: 0.3; cursor: default; }
 
-.pf-nav[disabled]:hover { background: rgba(28, 18, 32, 0.85); border-color: var(--border); }
+.pf-nav[disabled]:hover { background: rgba(12, 10, 38, 0.85); border-color: var(--border); }
 
 .pf-prev { left: -14px; }
 .pf-next { right: -14px; }
@@ -819,7 +710,7 @@ h1, h2, h3, h4, .display, .display-sm {
   cursor: pointer;
 }
 
-.pf-dots button.on { width: 26px; background: var(--orange); }
+.pf-dots button.on { width: 26px; background: var(--grad); }
 
 .pf-empty { padding: 4rem 0; text-align: center; color: rgba(255, 255, 255, 0.45); }
 
@@ -827,11 +718,8 @@ h1, h2, h3, h4, .display, .display-sm {
 
 .path-card, .service-card, .step, .ai-card, .industry-card, .stat, .team-card {
   border: 1px solid var(--border);
-  border-top-color: var(--border-lit);
   border-radius: 1.25rem;
-  background:
-    radial-gradient(120% 80% at 100% 0%, rgba(240, 90, 44, 0.10), transparent 60%),
-    linear-gradient(160deg, var(--surface-2), var(--surface) 65%);
+  background: linear-gradient(160deg, var(--surface-2), var(--surface) 65%);
   transition: transform 0.3s, border-color 0.3s;
 }
 
@@ -855,7 +743,7 @@ h1, h2, h3, h4, .display, .display-sm {
    carry .tilt-card in the markup too, so they use the same rule. */
 .path-card:hover, .service-card:hover, .step:hover, .ai-card:hover, .team-card:hover {
   border-color: var(--border-lit);
-  box-shadow: 0 28px 60px -30px rgba(240, 90, 44, 0.7);
+  box-shadow: 0 28px 60px -34px rgba(124, 77, 255, 0.85);
 }
 
 /* Grid rows built from flex, not grid: an incomplete last row then centres
@@ -897,7 +785,7 @@ h1, h2, h3, h4, .display, .display-sm {
 }
 
 /* 1px gradient edge, drawn with a mask so only the border shows. Lights up on
-   hover in the brand orange -> pink ramp. */
+   hover in the deck's violet -> magenta -> orange ramp. */
 .tilt-card::before {
   content: '';
   position: absolute;
@@ -925,8 +813,8 @@ h1, h2, h3, h4, .display, .display-sm {
   inset: 0;
   z-index: -1;
   border-radius: inherit;
-  background: radial-gradient(115% 85% at 88% -8%, rgba(240, 90, 44, 0.38), transparent 62%);
-  opacity: 0.35;
+  background: radial-gradient(115% 85% at 88% -8%, rgba(244, 102, 31, 0.32), transparent 62%);
+  opacity: 0;
   transition: opacity 0.45s;
   pointer-events: none;
 }
@@ -970,26 +858,26 @@ h1, h2, h3, h4, .display, .display-sm {
   letter-spacing: -0.04em;
   line-height: 1;
   color: transparent;
-  -webkit-text-stroke: 1px rgba(240, 90, 44, 0.42);
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.13);
   transition: -webkit-text-stroke-color 0.35s;
   pointer-events: none;
 }
 
-.service-card:hover .service-num { -webkit-text-stroke-color: var(--orange-warm); }
+.service-card:hover .service-num { -webkit-text-stroke-color: rgba(244, 102, 31, 0.55); }
 
 .service-card h3 { margin-top: 0; padding-right: 3.5rem; }
 
 .ai-card .ai-icon { transition: background 0.35s, border-color 0.35s, color 0.35s; }
 
 .ai-card:hover .ai-icon {
-  background: #fff;
+  background: var(--grad);
   border-color: transparent;
-  color: var(--orange);
+  color: #fff;
 }
 
 .path-card-featured {
   border-color: var(--border-lit);
-  background: linear-gradient(160deg, rgba(240, 90, 44, 0.20), rgba(255, 107, 181, 0.06));
+  background: linear-gradient(160deg, rgba(124, 77, 255, 0.18), rgba(244, 102, 31, 0.08));
 }
 
 .path-icon {
@@ -1022,7 +910,7 @@ h1, h2, h3, h4, .display, .display-sm {
 .service-card { padding: 1.5rem; }
 
 .service-num {
-  font-family: var(--font-head);
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.1em;
@@ -1065,12 +953,12 @@ h1, h2, h3, h4, .display, .display-sm {
   letter-spacing: -0.04em;
   line-height: 1;
   color: transparent;
-  -webkit-text-stroke: 1px rgba(240, 90, 44, 0.42);
+  -webkit-text-stroke: 1px rgba(255, 255, 255, 0.13);
   transition: -webkit-text-stroke-color 0.35s;
   pointer-events: none;
 }
 
-.step:hover .step-num { -webkit-text-stroke-color: var(--orange-warm); }
+.step:hover .step-num { -webkit-text-stroke-color: rgba(244, 102, 31, 0.55); }
 
 /* The deck sets the approach-stage names in orange. */
 .step h4 { margin-top: 0; padding-right: 3.2rem; font-size: 1.05rem; font-weight: 600; color: var(--orange-soft); }
@@ -1099,10 +987,9 @@ h1, h2, h3, h4, .display, .display-sm {
   border-radius: 0.8rem;
   display: grid;
   place-items: center;
-  background: var(--grad);
-  border: 1px solid transparent;
-  color: #fff;
-  box-shadow: 0 8px 20px -10px rgba(240, 90, 44, 0.9);
+  background: rgba(244, 102, 31, 0.12);
+  border: 1px solid var(--border-lit);
+  color: var(--orange-soft);
 }
 
 .ai-card h4 { margin-top: 0; font-size: 1rem; font-weight: 600; line-height: 1.3; }
@@ -1117,7 +1004,7 @@ h1, h2, h3, h4, .display, .display-sm {
   text-align: center;
 }
 
-.industry-card i { font-size: 1.4rem; color: var(--orange); }
+.industry-card i { font-size: 1.4rem; color: var(--orange-soft); }
 .industry-card span { font-size: 0.85rem; color: rgba(255, 255, 255, 0.75); }
 .industry-card:hover { transform: translateY(-4px); border-color: var(--border-lit); }
 
@@ -1125,15 +1012,14 @@ h1, h2, h3, h4, .display, .display-sm {
   padding: 1.1rem 1.25rem;
   border-radius: 1rem;
   border: 1px solid var(--border);
-  border-left: 3px solid var(--orange);
-  background: rgba(240, 90, 44, 0.07);
+  background: rgba(124, 77, 255, 0.08);
   font-size: 0.925rem;
   line-height: 1.45;
   color: rgba(255, 255, 255, 0.88);
   transition: all 0.25s;
 }
 
-.pill-card:hover { border-color: var(--border-lit); background: rgba(240, 90, 44, 0.10); transform: translateY(-3px); }
+.pill-card:hover { border-color: var(--border-lit); background: rgba(244, 102, 31, 0.10); transform: translateY(-3px); }
 
 /* Why-choose-us and Our Team are label-only cards — no body copy — so they run
    as one compact row (icon left, label right) on a translucent surface that
@@ -1161,10 +1047,10 @@ h1, h2, h3, h4, .display, .display-sm {
   letter-spacing: -0.01em;
 }
 
-.stat { padding: 2rem; text-align: center; border-top: 3px solid var(--orange); }
+.stat { padding: 2rem; text-align: center; }
 
 .stat-num {
-  font-family: var(--font-head);
+  font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: clamp(2.25rem, 4vw, 3rem);
   font-weight: 700;
   background: var(--grad);
@@ -1206,9 +1092,9 @@ h1, h2, h3, h4, .display, .display-sm {
   border-radius: 0.8rem;
   display: grid;
   place-items: center;
-  border: 1px solid transparent;
-  background: var(--grad);
-  color: #fff;
+  border: 1px solid var(--border);
+  background: rgba(244, 102, 31, 0.10);
+  color: var(--orange-soft);
 }
 
 .whatsapp-btn {
@@ -1238,9 +1124,8 @@ h1, h2, h3, h4, .display, .display-sm {
 }
 
 .faq summary::-webkit-details-marker { display: none; }
-.faq summary i { color: var(--orange); font-size: 0.85rem; transition: transform 0.3s; }
+.faq summary i { color: var(--orange-soft); font-size: 0.85rem; transition: transform 0.3s; }
 .faq[open] summary i { transform: rotate(45deg); }
-.faq[open] summary { color: var(--orange-soft); }
 .faq p { margin-top: 0.9rem; font-size: 0.95rem; line-height: 1.7; color: rgba(255, 255, 255, 0.58); }
 
 /* -------------------------------------------------------------------- CTA */
@@ -1251,25 +1136,12 @@ h1, h2, h3, h4, .display, .display-sm {
   padding: 4rem 2rem;
   border-radius: 2rem;
   text-align: center;
-  border: 1px solid rgba(255, 255, 255, 0.18);
-  /* Solid brand-orange block, darkened towards the centre/bottom so the white
-     copy stays at WCAG AA. */
+  border: 1px solid var(--border-lit);
   background:
-    radial-gradient(ellipse 40% 60% at 0% 0%, rgba(255, 138, 82, 0.5), transparent 70%),
-    radial-gradient(ellipse 45% 70% at 100% 100%, rgba(255, 107, 181, 0.30), transparent 70%),
-    radial-gradient(ellipse 60% 55% at 50% 60%, rgba(140, 36, 8, 0.72), transparent 80%),
-    linear-gradient(135deg, var(--orange) 0%, #d84a1f 50%, var(--orange-deep) 100%);
-  box-shadow: 0 40px 90px -40px rgba(240, 90, 44, 0.9);
+    radial-gradient(ellipse at 20% 0%, rgba(124, 77, 255, 0.28), transparent 60%),
+    radial-gradient(ellipse at 85% 100%, rgba(244, 102, 31, 0.24), transparent 60%),
+    var(--surface);
 }
-
-.cta .display-sm, .cta .accent { color: #fff; }
-.cta .thin { color: rgba(255, 255, 255, 0.92); }
-.cta p { color: #fff !important; }
-.cta .accent { text-decoration: underline; text-decoration-thickness: 3px; text-underline-offset: 6px; text-decoration-color: rgba(255, 255, 255, 0.6); }
-
-/* On the orange block the primary button inverts to white. */
-.cta .btn-primary { background: #fff; color: var(--orange-deep); box-shadow: 0 14px 34px -14px rgba(0, 0, 0, 0.5); }
-.cta .btn-primary:hover { background: #fff3ec; }
 
 .chat-fab {
   position: fixed;
