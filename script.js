@@ -21,10 +21,10 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
       scale: 1,
       scaleMobile: 1,
       // Deliberately dark: the hero sits on top of this, so the waves read as
-      // texture rather than competing with the orange badge and body copy.
+      // texture rather than competing with the bronze accents and body copy.
       // Vanta's lighting brightens the base colour a lot, so this is set far
-      // darker than the violet it should end up looking like.
-      color: 0x2a1466,
+      // darker than the teal it should end up looking like.
+      color: 0x0b3a46,
       shininess: 30,
       waveHeight: 18,
       waveSpeed: 0.7,
@@ -58,8 +58,8 @@ const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').match
       minWidth: 200,
       scale: 1,
       scaleMobile: 1,
-      color: 0x7c4dff,        // --violet; body::before adds the magenta/orange
-      backgroundColor: 0x060518,
+      color: 0xba8f69,        // --bronze nodes; body::before adds the teal wash
+      backgroundColor: 0x0c1f28,
       points: 9,
       maxDistance: 21,
       spacing: 18,

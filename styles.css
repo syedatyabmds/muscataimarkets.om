@@ -1,23 +1,29 @@
 /* ==========================================================================
    Muscat AI Markets — theme
-   Palette and typography follow the Macro Digital company profile deck:
-   deep indigo/violet field, magenta mid-tones, orange as the primary accent.
+   Palette follows the Muscat AI Markets Brand Identity Guidelines (2026):
+   deep teal #104c5a / dark slate #172b36 field, bronze #ba8f69 as the primary
+   accent, cream #f5eedd for highlights and light surfaces.
    ========================================================================== */
 
 :root {
-  --bg:          #060518;
-  --bg-2:        #0c0a26;
-  --surface:     #121030;
-  --surface-2:   #191540;
-  --orange:      #f4661f;
-  --orange-soft: #ff8a3d;
-  --magenta:     #e5399a;
-  --violet:      #7c4dff;
-  --violet-soft: #a78bfa;
-  --blue:        #3b6fff;
-  --border:      rgba(255, 255, 255, 0.09);
-  --border-lit:  rgba(244, 102, 31, 0.45);
-  --grad:        linear-gradient(120deg, var(--violet), var(--magenta) 55%, var(--orange));
+  /* Brand primaries (guideline 3.1) */
+  --teal:        #104c5a;
+  --bronze:      #ba8f69;
+  --cream:       #f5eedd;
+  /* Brand secondaries (guideline 3.2) */
+  --slate:       #172b36;
+  --sky:         #30c1ff;
+
+  --bg:          #0c1f28;
+  --bg-2:        #104c5a;
+  --surface:     #12313c;
+  --surface-2:   #173f4b;
+  --teal-lit:    #1d6b7c;
+  --bronze-soft: #d6b48f;
+  --ink:         #172b36;  /* text on bronze / cream fills */
+  --border:      rgba(245, 238, 221, 0.10);
+  --border-lit:  rgba(186, 143, 105, 0.55);
+  --grad:        linear-gradient(120deg, var(--bronze), #d9bc98 55%, var(--cream));
 }
 
 * { box-sizing: border-box; }
@@ -42,7 +48,7 @@ body {
 
 #site-topology canvas { position: absolute !important; inset: 0; }
 
-/* Deep vertical wash so the page reads indigo rather than flat black. Opaque
+/* Deep vertical wash so the page reads brand teal rather than flat black. Opaque
    on its own; once TOPOLOGY is live it drops to a translucent variant so the
    animation shows through — see .topology-on below. */
 body::before {
@@ -51,8 +57,8 @@ body::before {
   inset: 0;
   z-index: -2;
   background:
-    radial-gradient(ellipse 90% 55% at 12% 0%, rgba(124, 77, 255, 0.20), transparent 60%),
-    radial-gradient(ellipse 70% 50% at 88% 12%, rgba(229, 57, 154, 0.14), transparent 60%),
+    radial-gradient(ellipse 90% 55% at 12% 0%, rgba(29, 107, 124, 0.20), transparent 60%),
+    radial-gradient(ellipse 70% 50% at 88% 12%, rgba(186, 143, 105, 0.14), transparent 60%),
     linear-gradient(180deg, var(--bg-2) 0%, var(--bg) 45%);
 }
 
@@ -60,12 +66,12 @@ body::before {
    copy legible over it. Measured, not guessed — see AGENTS.md. */
 body.topology-on::before {
   background:
-    radial-gradient(ellipse 90% 55% at 12% 0%, rgba(124, 77, 255, 0.22), transparent 60%),
-    radial-gradient(ellipse 70% 50% at 88% 12%, rgba(229, 57, 154, 0.16), transparent 60%),
-    linear-gradient(180deg, rgba(12, 10, 38, 0.66) 0%, rgba(6, 5, 24, 0.76) 45%);
+    radial-gradient(ellipse 90% 55% at 12% 0%, rgba(29, 107, 124, 0.22), transparent 60%),
+    radial-gradient(ellipse 70% 50% at 88% 12%, rgba(186, 143, 105, 0.16), transparent 60%),
+    linear-gradient(180deg, rgba(14, 40, 49, 0.66) 0%, rgba(9, 27, 34, 0.76) 45%);
 }
 
-::selection { background: var(--orange); color: #fff; }
+::selection { background: var(--bronze); color: var(--ink); }
 
 /* Mobile nav */
 header nav.mobile-open {
@@ -76,7 +82,7 @@ header nav.mobile-open {
   left: 0;
   right: 0;
   gap: 1.25rem;
-  background: rgba(6, 5, 24, 0.97);
+  background: rgba(9, 27, 34, 0.97);
   backdrop-filter: blur(20px);
   border-top: 1px solid var(--border);
   padding: 1.5rem;
@@ -110,10 +116,10 @@ h1, h2, h3, h4, .display, .display-sm {
   font-weight: 600;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--orange-soft);
+  color: var(--bronze-soft);
 }
 
-.accent { color: var(--orange-soft); font-style: normal; }
+.accent { color: var(--bronze-soft); font-style: normal; }
 
 .grad-text {
   background: var(--grad);
@@ -122,9 +128,9 @@ h1, h2, h3, h4, .display, .display-sm {
   color: transparent;
 }
 
-/* A left rule in the deck's orange precedes most body copy. */
+/* A left rule in brand bronze precedes most body copy. */
 .rule-left {
-  border-left: 2px solid var(--orange);
+  border-left: 2px solid var(--bronze);
   padding-left: 1.15rem;
 }
 
@@ -136,8 +142,8 @@ h1, h2, h3, h4, .display, .display-sm {
   font-size: 0.8rem;
   border-radius: 999px;
   border: 1px solid var(--border-lit);
-  background: rgba(244, 102, 31, 0.10);
-  color: var(--orange-soft);
+  background: rgba(186, 143, 105, 0.10);
+  color: var(--bronze-soft);
 }
 
 .btn {
@@ -154,13 +160,13 @@ h1, h2, h3, h4, .display, .display-sm {
 
 .btn-primary {
   background: var(--grad);
-  color: #fff;
-  box-shadow: 0 10px 30px -12px rgba(244, 102, 31, 0.7);
+  color: var(--ink);
+  box-shadow: 0 10px 30px -12px rgba(186, 143, 105, 0.7);
 }
 
 .btn-primary:hover {
   transform: translateY(-2px);
-  box-shadow: 0 16px 38px -12px rgba(244, 102, 31, 0.85);
+  box-shadow: 0 16px 38px -12px rgba(186, 143, 105, 0.85);
 }
 
 .btn-ghost {
@@ -171,12 +177,12 @@ h1, h2, h3, h4, .display, .display-sm {
 
 .btn-ghost:hover {
   border-color: var(--border-lit);
-  background: rgba(244, 102, 31, 0.08);
+  background: rgba(186, 143, 105, 0.08);
   transform: translateY(-2px);
 }
 
 /* Vanta mounts its WebGL canvas in here. WAVES only takes one base colour, so
-   .aurora sits on top to carry the magenta/orange end of the brand gradient —
+   .aurora sits on top to carry the warm bronze end of the brand gradient —
    and is what you see if the CDN or WebGL is unavailable. */
 /* Opaque base: the hero must fully occlude the fixed page topology behind it,
    including when WebGL/the CDN is unavailable and no canvas is drawn here. */
@@ -194,7 +200,7 @@ h1, h2, h3, h4, .display, .display-sm {
   z-index: 0 !important;
 }
 
-/* Scrim over the canvas. Wave crests catch enough light to fight the orange
+/* Scrim over the canvas. Wave crests catch enough light to fight the bronze
    badge and the body copy, so this is heavy directly behind the text column
    and falls away fast towards the edges, where the animation stays visible.
    Measured target: background luminance <= 0.11 behind the badge, which keeps
@@ -205,12 +211,12 @@ h1, h2, h3, h4, .display, .display-sm {
   inset: 0;
   z-index: 1;
   background:
-    radial-gradient(ellipse 64% 58% at 50% 46%, rgba(6, 5, 24, 0.91), rgba(6, 5, 24, 0.44) 68%, rgba(6, 5, 24, 0.10)),
-    linear-gradient(180deg, rgba(6, 5, 24, 0.55), rgba(6, 5, 24, 0.22) 45%, rgba(6, 5, 24, 0.88));
+    radial-gradient(ellipse 64% 58% at 50% 46%, rgba(9, 27, 34, 0.91), rgba(9, 27, 34, 0.44) 68%, rgba(9, 27, 34, 0.10)),
+    linear-gradient(180deg, rgba(9, 27, 34, 0.55), rgba(9, 27, 34, 0.22) 45%, rgba(9, 27, 34, 0.88));
 }
 
 /* Once the waves are live the tint is held well back — they already supply the
-   violet, so this only reintroduces the warm end of the gradient rather than
+   teal, so this only reintroduces the warm end of the gradient rather than
    lifting hero brightness back up and swamping the text. */
 .hero-waves.is-on ~ .aurora { opacity: 0.4; }
 
@@ -227,9 +233,9 @@ h1, h2, h3, h4, .display, .display-sm {
      canvas isn't running (no WebGL, CDN down, reduced motion). */
   opacity: 1;
   background:
-    radial-gradient(circle at 30% 35%, rgba(124, 77, 255, 0.30), transparent 55%),
-    radial-gradient(circle at 68% 30%, rgba(229, 57, 154, 0.22), transparent 55%),
-    radial-gradient(circle at 52% 68%, rgba(244, 102, 31, 0.18), transparent 55%);
+    radial-gradient(circle at 30% 35%, rgba(29, 107, 124, 0.30), transparent 55%),
+    radial-gradient(circle at 68% 30%, rgba(186, 143, 105, 0.22), transparent 55%),
+    radial-gradient(circle at 52% 68%, rgba(186, 143, 105, 0.18), transparent 55%);
   filter: blur(30px);
 }
 
@@ -293,7 +299,7 @@ h1, h2, h3, h4, .display, .display-sm {
 .chip-active {
   background: var(--grad);
   border-color: transparent;
-  color: #fff;
+  color: var(--ink);
   font-weight: 600;
 }
 
@@ -329,7 +335,7 @@ h1, h2, h3, h4, .display, .display-sm {
 .pf-card:hover {
   border-color: var(--border-lit);
   transform: translateY(-4px);
-  box-shadow: 0 24px 50px -30px rgba(244, 102, 31, 0.6);
+  box-shadow: 0 24px 50px -30px rgba(186, 143, 105, 0.6);
 }
 
 .pf-card-top {
@@ -379,7 +385,7 @@ h1, h2, h3, h4, .display, .display-sm {
   font-size: 0.7rem;
   letter-spacing: 0.06em;
   text-transform: uppercase;
-  color: var(--orange-soft);
+  color: var(--bronze-soft);
 }
 
 .pf-tags { display: flex; flex-wrap: wrap; gap: 0.5rem; margin: 1.25rem 0; }
@@ -400,7 +406,7 @@ h1, h2, h3, h4, .display, .display-sm {
   aspect-ratio: 4 / 3;
   border-radius: 1rem;
   overflow: hidden;
-  background: #0a0820;
+  background: #0a1d25;
 }
 
 .pf-media img {
@@ -435,7 +441,7 @@ h1, h2, h3, h4, .display, .display-sm {
   transition: all 0.3s;
 }
 
-.pf-media-dots i.on { width: 16px; background: var(--orange); }
+.pf-media-dots i.on { width: 16px; background: var(--bronze); }
 
 .pf-count {
   position: absolute;
@@ -445,7 +451,7 @@ h1, h2, h3, h4, .display, .display-sm {
   padding: 0.2rem 0.55rem;
   border-radius: 999px;
   font-size: 0.68rem;
-  background: rgba(6, 5, 24, 0.72);
+  background: rgba(9, 27, 34, 0.72);
   border: 1px solid var(--border);
   backdrop-filter: blur(6px);
   color: rgba(255, 255, 255, 0.8);
@@ -460,7 +466,7 @@ h1, h2, h3, h4, .display, .display-sm {
   display: grid;
   place-items: center;
   cursor: zoom-in;
-  background: rgba(6, 5, 24, 0);
+  background: rgba(9, 27, 34, 0);
   transition: background 0.25s;
 }
 
@@ -473,7 +479,7 @@ h1, h2, h3, h4, .display, .display-sm {
   font-size: 0.82rem;
   font-weight: 600;
   color: #fff;
-  background: rgba(6, 5, 24, 0.75);
+  background: rgba(9, 27, 34, 0.75);
   border: 1px solid var(--border-lit);
   backdrop-filter: blur(8px);
   opacity: 0;
@@ -481,10 +487,10 @@ h1, h2, h3, h4, .display, .display-sm {
   transition: opacity 0.25s, transform 0.25s;
 }
 
-.pf-open:hover, .pf-open:focus-visible { background: rgba(6, 5, 24, 0.45); outline: none; }
+.pf-open:hover, .pf-open:focus-visible { background: rgba(9, 27, 34, 0.45); outline: none; }
 .pf-open:hover .pf-open-cue,
 .pf-open:focus-visible .pf-open-cue { opacity: 1; transform: none; }
-.pf-media:hover .pf-count { background: var(--orange); border-color: transparent; color: #fff; }
+.pf-media:hover .pf-count { background: var(--bronze); border-color: transparent; color: var(--ink); }
 
 /* ------------------------------------------------------------- lightbox */
 
@@ -505,7 +511,7 @@ h1, h2, h3, h4, .display, .display-sm {
 .pf-lb-backdrop, .pf-zoom-backdrop {
   position: fixed;
   inset: 0;
-  background: rgba(4, 3, 16, 0.82);
+  background: rgba(5, 16, 21, 0.82);
   backdrop-filter: blur(10px);
   opacity: 0;
   transition: opacity 0.25s;
@@ -556,7 +562,7 @@ h1, h2, h3, h4, .display, .display-sm {
   transition: all 0.2s;
 }
 
-.pf-lb-close:hover { background: var(--orange); border-color: transparent; transform: rotate(90deg); }
+.pf-lb-close:hover { background: var(--bronze); color: var(--ink); border-color: transparent; transform: rotate(90deg); }
 
 .pf-lb-desc {
   margin-top: 1.25rem;
@@ -587,7 +593,7 @@ h1, h2, h3, h4, .display, .display-sm {
   overflow: hidden;
   border-radius: 0.9rem;
   border: 1px solid var(--border);
-  background: #0a0820;
+  background: #0a1d25;
   cursor: zoom-in;
   align-self: stretch;
   transition: border-color 0.25s, transform 0.25s;
@@ -644,14 +650,14 @@ h1, h2, h3, h4, .display, .display-sm {
   display: grid;
   place-items: center;
   border: 1px solid var(--border);
-  background: rgba(12, 10, 38, 0.8);
+  background: rgba(14, 40, 49, 0.8);
   backdrop-filter: blur(8px);
   color: #fff;
   cursor: pointer;
   transition: all 0.2s;
 }
 
-.pf-zoom-close:hover, .pf-zoom-nav:hover { background: var(--orange); border-color: transparent; }
+.pf-zoom-close:hover, .pf-zoom-nav:hover { background: var(--bronze); color: var(--ink); border-color: transparent; }
 .pf-zoom-close { top: 1.25rem; right: 1.25rem; }
 .pf-zoom-prev { left: 1.25rem; }
 .pf-zoom-next { right: 1.25rem; }
@@ -664,7 +670,7 @@ h1, h2, h3, h4, .display, .display-sm {
   padding: 0.35rem 0.9rem;
   border-radius: 999px;
   font-size: 0.8rem;
-  background: rgba(12, 10, 38, 0.8);
+  background: rgba(14, 40, 49, 0.8);
   border: 1px solid var(--border);
   backdrop-filter: blur(8px);
   color: rgba(255, 255, 255, 0.85);
@@ -682,7 +688,7 @@ h1, h2, h3, h4, .display, .display-sm {
   display: grid;
   place-items: center;
   border: 1px solid var(--border);
-  background: rgba(12, 10, 38, 0.85);
+  background: rgba(14, 40, 49, 0.85);
   backdrop-filter: blur(8px);
   color: #fff;
   cursor: pointer;
@@ -690,11 +696,11 @@ h1, h2, h3, h4, .display, .display-sm {
   z-index: 3;
 }
 
-.pf-nav:hover { border-color: var(--border-lit); background: var(--orange); }
+.pf-nav:hover { border-color: var(--border-lit); background: var(--bronze); color: var(--ink); }
 
 .pf-nav[disabled] { opacity: 0.3; cursor: default; }
 
-.pf-nav[disabled]:hover { background: rgba(12, 10, 38, 0.85); border-color: var(--border); }
+.pf-nav[disabled]:hover { background: rgba(14, 40, 49, 0.85); border-color: var(--border); }
 
 .pf-prev { left: -14px; }
 .pf-next { right: -14px; }
@@ -743,7 +749,7 @@ h1, h2, h3, h4, .display, .display-sm {
    carry .tilt-card in the markup too, so they use the same rule. */
 .path-card:hover, .service-card:hover, .step:hover, .ai-card:hover, .team-card:hover {
   border-color: var(--border-lit);
-  box-shadow: 0 28px 60px -34px rgba(124, 77, 255, 0.85);
+  box-shadow: 0 28px 60px -34px rgba(29, 107, 124, 0.85);
 }
 
 /* Grid rows built from flex, not grid: an incomplete last row then centres
@@ -785,7 +791,7 @@ h1, h2, h3, h4, .display, .display-sm {
 }
 
 /* 1px gradient edge, drawn with a mask so only the border shows. Lights up on
-   hover in the deck's violet -> magenta -> orange ramp. */
+   hover in the brand bronze -> cream ramp. */
 .tilt-card::before {
   content: '';
   position: absolute;
@@ -813,7 +819,7 @@ h1, h2, h3, h4, .display, .display-sm {
   inset: 0;
   z-index: -1;
   border-radius: inherit;
-  background: radial-gradient(115% 85% at 88% -8%, rgba(244, 102, 31, 0.32), transparent 62%);
+  background: radial-gradient(115% 85% at 88% -8%, rgba(186, 143, 105, 0.32), transparent 62%);
   opacity: 0;
   transition: opacity 0.45s;
   pointer-events: none;
@@ -863,7 +869,7 @@ h1, h2, h3, h4, .display, .display-sm {
   pointer-events: none;
 }
 
-.service-card:hover .service-num { -webkit-text-stroke-color: rgba(244, 102, 31, 0.55); }
+.service-card:hover .service-num { -webkit-text-stroke-color: rgba(186, 143, 105, 0.55); }
 
 .service-card h3 { margin-top: 0; padding-right: 3.5rem; }
 
@@ -872,12 +878,12 @@ h1, h2, h3, h4, .display, .display-sm {
 .ai-card:hover .ai-icon {
   background: var(--grad);
   border-color: transparent;
-  color: #fff;
+  color: var(--ink);
 }
 
 .path-card-featured {
   border-color: var(--border-lit);
-  background: linear-gradient(160deg, rgba(124, 77, 255, 0.18), rgba(244, 102, 31, 0.08));
+  background: linear-gradient(160deg, rgba(29, 107, 124, 0.18), rgba(186, 143, 105, 0.08));
 }
 
 .path-icon {
@@ -888,11 +894,11 @@ h1, h2, h3, h4, .display, .display-sm {
   place-items: center;
   font-size: 1.15rem;
   background: var(--grad);
-  color: #fff;
+  color: var(--ink);
 }
 
 .path-card h3 { margin-top: 0; font-size: 1.25rem; font-weight: 600; }
-.path-sub { margin-top: 0; font-size: 0.85rem; color: var(--orange-soft); }
+.path-sub { margin-top: 0; font-size: 0.85rem; color: var(--bronze-soft); }
 .path-card p:not(.path-sub) { margin-top: 0; font-size: 0.925rem; line-height: 1.65; color: rgba(255, 255, 255, 0.6); }
 
 .path-link {
@@ -902,7 +908,7 @@ h1, h2, h3, h4, .display, .display-sm {
   margin-top: 1.5rem;
   font-size: 0.9rem;
   font-weight: 600;
-  color: var(--orange-soft);
+  color: var(--bronze-soft);
 }
 
 .path-link:hover { color: #fff; }
@@ -914,7 +920,7 @@ h1, h2, h3, h4, .display, .display-sm {
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.1em;
-  color: var(--orange);
+  color: var(--bronze);
 }
 
 .service-card h3 { margin-top: 0.6rem; font-size: 1.2rem; font-weight: 600; }
@@ -936,7 +942,7 @@ h1, h2, h3, h4, .display, .display-sm {
   width: 5px;
   height: 5px;
   border-radius: 999px;
-  background: var(--orange);
+  background: var(--bronze);
 }
 
 .step { padding: 1.5rem; }
@@ -958,10 +964,10 @@ h1, h2, h3, h4, .display, .display-sm {
   pointer-events: none;
 }
 
-.step:hover .step-num { -webkit-text-stroke-color: rgba(244, 102, 31, 0.55); }
+.step:hover .step-num { -webkit-text-stroke-color: rgba(186, 143, 105, 0.55); }
 
-/* The deck sets the approach-stage names in orange. */
-.step h4 { margin-top: 0; padding-right: 3.2rem; font-size: 1.05rem; font-weight: 600; color: var(--orange-soft); }
+/* The deck sets the approach-stage names in the accent colour. */
+.step h4 { margin-top: 0; padding-right: 3.2rem; font-size: 1.05rem; font-weight: 600; color: var(--bronze-soft); }
 .step p { margin-top: 0.6rem; font-size: 0.875rem; line-height: 1.6; color: rgba(255, 255, 255, 0.58); }
 
 /* Compact icon-led layout: the icon and the title share the first row, and
@@ -987,9 +993,9 @@ h1, h2, h3, h4, .display, .display-sm {
   border-radius: 0.8rem;
   display: grid;
   place-items: center;
-  background: rgba(244, 102, 31, 0.12);
+  background: rgba(186, 143, 105, 0.12);
   border: 1px solid var(--border-lit);
-  color: var(--orange-soft);
+  color: var(--bronze-soft);
 }
 
 .ai-card h4 { margin-top: 0; font-size: 1rem; font-weight: 600; line-height: 1.3; }
@@ -1004,7 +1010,7 @@ h1, h2, h3, h4, .display, .display-sm {
   text-align: center;
 }
 
-.industry-card i { font-size: 1.4rem; color: var(--orange-soft); }
+.industry-card i { font-size: 1.4rem; color: var(--bronze-soft); }
 .industry-card span { font-size: 0.85rem; color: rgba(255, 255, 255, 0.75); }
 .industry-card:hover { transform: translateY(-4px); border-color: var(--border-lit); }
 
@@ -1012,14 +1018,14 @@ h1, h2, h3, h4, .display, .display-sm {
   padding: 1.1rem 1.25rem;
   border-radius: 1rem;
   border: 1px solid var(--border);
-  background: rgba(124, 77, 255, 0.08);
+  background: rgba(29, 107, 124, 0.08);
   font-size: 0.925rem;
   line-height: 1.45;
   color: rgba(255, 255, 255, 0.88);
   transition: all 0.25s;
 }
 
-.pill-card:hover { border-color: var(--border-lit); background: rgba(244, 102, 31, 0.10); transform: translateY(-3px); }
+.pill-card:hover { border-color: var(--border-lit); background: rgba(186, 143, 105, 0.10); transform: translateY(-3px); }
 
 /* Why-choose-us and Our Team are label-only cards — no body copy — so they run
    as one compact row (icon left, label right) on a translucent surface that
@@ -1082,7 +1088,7 @@ h1, h2, h3, h4, .display, .display-sm {
 }
 
 .input-field::placeholder { color: rgba(255, 255, 255, 0.35); }
-.input-field:focus { outline: none; border-color: var(--orange); background: rgba(255, 255, 255, 0.07); }
+.input-field:focus { outline: none; border-color: var(--bronze); background: rgba(255, 255, 255, 0.07); }
 .input-field option { background: var(--surface); }
 
 .contact-icon {
@@ -1093,8 +1099,8 @@ h1, h2, h3, h4, .display, .display-sm {
   display: grid;
   place-items: center;
   border: 1px solid var(--border);
-  background: rgba(244, 102, 31, 0.10);
-  color: var(--orange-soft);
+  background: rgba(186, 143, 105, 0.10);
+  color: var(--bronze-soft);
 }
 
 .whatsapp-btn {
@@ -1124,7 +1130,7 @@ h1, h2, h3, h4, .display, .display-sm {
 }
 
 .faq summary::-webkit-details-marker { display: none; }
-.faq summary i { color: var(--orange-soft); font-size: 0.85rem; transition: transform 0.3s; }
+.faq summary i { color: var(--bronze-soft); font-size: 0.85rem; transition: transform 0.3s; }
 .faq[open] summary i { transform: rotate(45deg); }
 .faq p { margin-top: 0.9rem; font-size: 0.95rem; line-height: 1.7; color: rgba(255, 255, 255, 0.58); }
 
@@ -1136,12 +1142,19 @@ h1, h2, h3, h4, .display, .display-sm {
   padding: 4rem 2rem;
   border-radius: 2rem;
   text-align: center;
-  border: 1px solid var(--border-lit);
+  color: var(--teal);
+  border: 3px solid var(--bronze);
   background:
-    radial-gradient(ellipse at 20% 0%, rgba(124, 77, 255, 0.28), transparent 60%),
-    radial-gradient(ellipse at 85% 100%, rgba(244, 102, 31, 0.24), transparent 60%),
-    var(--surface);
+    radial-gradient(ellipse at 15% 0%, rgba(186, 143, 105, 0.28), transparent 60%),
+    radial-gradient(ellipse at 90% 100%, rgba(16, 76, 90, 0.14), transparent 60%),
+    var(--cream);
 }
+
+/* Light brand surface: teal ink, bronze accent, solid teal button. */
+.cta .thin { color: rgba(16, 76, 90, 0.85); }
+.cta .accent { color: #9a6f4a; }
+.cta p { color: rgba(23, 43, 54, 0.75) !important; }
+.cta .btn-primary { background: var(--teal); color: #fff; box-shadow: 0 12px 30px -12px rgba(16, 76, 90, 0.7); }
 
 .chat-fab {
   position: fixed;
@@ -1209,4 +1222,38 @@ h1, h2, h3, h4, .display, .display-sm {
   .marquee-track { animation: none; }
   .pf-track { transition: none; }
   .pf-media img { transition: opacity 0.2s; transform: none; }
+}
+
+/* ------------------------------------------------------------ brand logo */
+
+/* Official Muscat AI Markets lockup (white version on the teal field, per the
+   guideline's colour versions page). Never below 70 px wide (guideline 2.2). */
+.brand-logo { display: inline-flex; align-items: center; flex: 0 0 auto; }
+.brand-logo img { display: block; height: 46px; width: auto; }
+@media (min-width: 768px) { .brand-logo img { height: 56px; } }
+
+.footer-logo { display: block; height: 96px; width: auto; }
+
+/* Header sits on a teal glass bar rather than neutral black. */
+.site-header {
+  background: rgba(16, 76, 90, 0.55);
+  border-bottom: 1px solid rgba(186, 143, 105, 0.28);
+}
+
+/* Client strip on the brand cream, so the identity's light surface reads
+   straight after the hero. Lockups are flattened to the dark slate ink. */
+.client-band {
+  background: var(--cream);
+  color: var(--ink);
+  border-top: 3px solid var(--bronze);
+  border-bottom: 3px solid var(--bronze);
+}
+.client-band p { color: rgba(23, 43, 54, 0.65); }
+.client-band .marquee-track img { filter: brightness(0); opacity: 0.72; }
+.client-band .marquee-track img:hover { opacity: 1; }
+
+/* Footer on the brand's deep teal-to-slate cover gradient. */
+.site-footer {
+  background: linear-gradient(180deg, var(--teal), var(--slate));
+  border-top: 3px solid var(--bronze);
 }
