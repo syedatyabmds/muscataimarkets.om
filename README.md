@@ -40,6 +40,12 @@ rsync -az --delete /home/ubuntu/work_area/muscataimarkets.om/ \
   /opt/websites/sites/muscataimarkets.om/
 ```
 
+## Branch protection
+
+`main` is protected: a pull request is required and **one approving review** is
+needed before merging. The repository owner (admin) can bypass the review
+requirement and merge without waiting, but direct pushes by non-admins are refused.
+
 ## Contributing
 
 1. Branch off `main`.
